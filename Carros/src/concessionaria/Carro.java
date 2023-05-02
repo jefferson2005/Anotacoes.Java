@@ -1,0 +1,47 @@
+package concessionaria;
+
+import java.util.Random;
+
+public class Carro {
+	
+	int ano;
+	String cor;
+	
+	// construtor
+	public Carro() {
+		System.out.println("_____________________________");
+		
+		// a linha abaixo cria um objeto de nome chassi
+		// chassi também é uma variável que recebe os caracteres dentro de ()
+		String chassi = new String("1234567890abcdefghijklmnopqrstuvwxyz");
+		
+		// a linha abaixo cria um objeto de nome gerador 
+		// random é usado para gerar números aleatórios 
+		Random gerador = new Random();
+		
+		System.out.println("Chassi: * " );
+		// o laço abaixo imprime aleatóriamente 16 números da String
+		
+		for (int i = 1; i < 16; i++) {
+			// gerar aleatóriamente um caractere da String a cada log
+			char numeracao = (char) gerador.nextInt(chassi.length());
+			System.out.println(chassi.charAt(numeracao));
+		}
+		System.out.println(" * ");
+	}
+	
+	
+	void ligar() {
+		System.out.println("Barulgo de motor ");
+	}
+	
+	void deligar() {
+		System.out.println("Broxando");
+	}
+	
+	void acelerar() {
+		System.out.println("VRUMMMMM.... PAPAPA!!!");
+	}
+
+ }
+
