@@ -22,9 +22,10 @@ import java.awt.Toolkit;
 public class CalculadoraServico extends JFrame {
 
 	// variáveis
-	double remuneracao, custo, valor, hora;
-	int cargaHoraria;
-
+	double remuneracao, custo, valor, hora, total;
+	int cargaHoraria, estimativa;
+	
+	
 	/**
 	 * 
 	 */
@@ -163,20 +164,20 @@ public class CalculadoraServico extends JFrame {
 				calcular();
 			}
 		});
-		btnCalcular.setBounds(234, 113, 48, 48);
+		btnCalcular.setBounds(231, 95, 48, 48);
 		contentPane.add(btnCalcular);
 
 		JButton btnLimpar = new JButton("");
 		btnLimpar.setToolTipText("Limpar");
 		btnLimpar.setContentAreaFilled(false);
-		btnLimpar.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/809419_delete_erase_miscellaneous_remove_trash_icon.png")));
+		btnLimpar.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/3844460_can_trash_icon.png")));
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limparcampos();
 			}
 		});
 		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpar.setBounds(337, 113, 55, 48);
+		btnLimpar.setBounds(334, 95, 48, 48);
 		contentPane.add(btnLimpar);
 
 		JLabel lblNewLabel_3 = new JLabel("valor da hora:");
@@ -188,7 +189,11 @@ public class CalculadoraServico extends JFrame {
 		contentPane.add(lblNewLabel_4);
 
 		txtEstimativa = new JTextField();
-		txtEstimativa.setBounds(182, 186, 133, 20);
+		txtEstimativa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		txtEstimativa.setBounds(179, 186, 108, 20);
 		contentPane.add(txtEstimativa);
 		txtEstimativa.setColumns(10);
 
@@ -205,6 +210,18 @@ public class CalculadoraServico extends JFrame {
 		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTotal.setBounds(182, 234, 114, 23);
 		contentPane.add(lblTotal);
+		
+		JButton btnResultado = new JButton("");
+		btnResultado.setContentAreaFilled(false);
+		btnResultado.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/216188_equals_icon.png")));
+		btnResultado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 calcularTotal();
+			}
+		});
+		btnResultado.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnResultado.setBounds(312, 172, 48, 48);
+		contentPane.add(btnResultado);
 	}// fim do construtor
 
 	private void calcular() {
@@ -236,7 +253,7 @@ public class CalculadoraServico extends JFrame {
 
 		// saída
 		//formatação do resultado (número de casas decimais)
-		//("#0.0") 2 casas decimais 
+		//("#0.00") 2 casas decimais 
 		DecimalFormat formatador = new DecimalFormat("#0.00");
 		lblValor.setText("R$" + valor);
 	}
@@ -244,6 +261,28 @@ public class CalculadoraServico extends JFrame {
 	private void limparcampos() {
 		txtRemuneracao.setText(null);
 		txtCusto.setText(null);
-		txtCargaHoraria.setText(null);
+		txtCargaHoraria.setText(null);		
+		txtEstimativa.setText(null);
+	}
+	/**
+	 * método responsavel pelo cálculo do valor total do serviço
+	 */
+	
+	private void calcularTotal() {
+		//validação de campos obrigatórios
+		if (txtEstimativa.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha a estimativa de horas");
+			txtEstimativa.requestDefaultFocus();
+		}else {
+		
+		//entrada
+		estimativa = Integer.parseInt(txtEstimativa.getText());
+		//processamento
+		total = estimativa * valor;
+		//saida
+		DecimalFormat formatador = new DecimalFormat("#0.00");
+		lblTotal.setText("R$" + formatador.format(total));
+	
+		}
 	}
 }// fim do código
