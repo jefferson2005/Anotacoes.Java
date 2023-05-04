@@ -21,10 +21,14 @@ import java.awt.Toolkit;
 
 public class CalculadoraServico extends JFrame {
 
+	// variáveis
 	double remuneracao, custo, valor, hora, total;
 	int cargaHoraria, estimativa;
-	DecimalFormat formatador = new DecimalFormat("#0.00");
-
+	
+	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtRemuneracao;
@@ -34,7 +38,9 @@ public class CalculadoraServico extends JFrame {
 	private JLabel lblValor;
 	private JLabel lblTotal;
 
-
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,9 +54,11 @@ public class CalculadoraServico extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public CalculadoraServico() {
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(CalculadoraServico.class.getResource("/img/5027823_calculator_coin_dollar_money_icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CalculadoraServico.class.getResource("/img/5027823_calculator_coin_dollar_money_icon.png")));
 		setTitle("Calculadora de serviços de TI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 360);
@@ -68,11 +76,14 @@ public class CalculadoraServico extends JFrame {
 		txtRemuneracao.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				//digitação...
+				//definir caracteres permitidos
 				String caracteres = "0123456789.";
-
-				if (!caracteres.contains(e.getKeyChar() + "")) {
-
+				
+				//se for digitando algum caracteres não permitido
+				if (!caracteres.contains(e.getKeyChar() + "")){
+					
+					//ignorar
 					e.consume();
 				}
 			}
@@ -94,11 +105,14 @@ public class CalculadoraServico extends JFrame {
 		txtCusto.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				//digitação...
+				//definir caracteres permitidos
 				String caracteres = "0123456789.";
-
-				if (!caracteres.contains(e.getKeyChar() + "")) {
-
+				
+				//se for digitando algum caracteres não permitido
+				if (!caracteres.contains(e.getKeyChar() + "")){
+					
+					//ignorar
 					e.consume();
 				}
 			}
@@ -120,11 +134,14 @@ public class CalculadoraServico extends JFrame {
 		txtCargaHoraria.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				//digitação...
+				//definir caracteres permitidos
 				String caracteres = "0123456789.";
-
-				if (!caracteres.contains(e.getKeyChar() + "")) {
-
+				
+				//se for digitando algum caracteres não permitido
+				if (!caracteres.contains(e.getKeyChar() + "")){
+					
+					//ignorar
 					e.consume();
 				}
 			}
@@ -193,21 +210,23 @@ public class CalculadoraServico extends JFrame {
 		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTotal.setBounds(182, 234, 114, 23);
 		contentPane.add(lblTotal);
-
+		
 		JButton btnResultado = new JButton("");
 		btnResultado.setContentAreaFilled(false);
 		btnResultado.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/216188_equals_icon.png")));
 		btnResultado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				calcularTotal();
+				 calcularTotal();
 			}
 		});
 		btnResultado.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnResultado.setBounds(312, 172, 48, 48);
 		contentPane.add(btnResultado);
-	}
+	}// fim do construtor
 
 	private void calcular() {
+		// teste do botão calcular
+		// System.out.println("teste");
 
 		if (txtRemuneracao.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preeencha a remuneração mensal pretendida");
@@ -218,37 +237,52 @@ public class CalculadoraServico extends JFrame {
 		} else if (txtCargaHoraria.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha a carga horária mensal de trabalho");
 			txtCargaHoraria.requestDefaultFocus();
-
-		} else {
-
+				
+			}else {
+			
+			// lógica principal
 		}
 
+		// entrada
 		remuneracao = Double.parseDouble(txtRemuneracao.getText());
 		custo = Double.parseDouble(txtCusto.getText());
 		cargaHoraria = Integer.parseInt(txtCargaHoraria.getText());
+
+		// processamento
 		valor = (remuneracao + (0.3 * remuneracao) + (0.2 * remuneracao) + custo) / cargaHoraria;
+
+		// saída
+		//formatação do resultado (número de casas decimais)
+		//("#0.00") 2 casas decimais 
+		DecimalFormat formatador = new DecimalFormat("#0.00");
 		lblValor.setText("R$" + valor);
 	}
 
 	private void limparcampos() {
 		txtRemuneracao.setText(null);
 		txtCusto.setText(null);
-		txtCargaHoraria.setText(null);
+		txtCargaHoraria.setText(null);		
 		txtEstimativa.setText(null);
 	}
-
+	/**
+	 * método responsavel pelo cálculo do valor total do serviço
+	 */
+	
 	private void calcularTotal() {
-		// validação de campos obrigatórios
+		//validação de campos obrigatórios
 		if (txtEstimativa.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha a estimativa de horas");
 			txtEstimativa.requestDefaultFocus();
-		} else {
-
-			estimativa = Integer.parseInt(txtEstimativa.getText());
-			total = estimativa * valor;
-			DecimalFormat formatador = new DecimalFormat("#0.00");
-			lblTotal.setText("R$" + formatador.format(total));
-
+		}else {
+		
+		//entrada
+		estimativa = Integer.parseInt(txtEstimativa.getText());
+		//processamento
+		total = estimativa * valor;
+		//saida
+		DecimalFormat formatador = new DecimalFormat("#0.00");
+		lblTotal.setText("R$" + formatador.format(total));
+	
 		}
 	}
-}
+}// fim do código
