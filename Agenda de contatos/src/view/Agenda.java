@@ -34,12 +34,15 @@ public class Agenda extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel btnAdicionar;
+	private JPanel btnTela;
 	private JTextField txtID;
 	private JTextField txtNome;
 	private JTextField txtFone;
 	private JTextField txtEmail;
 	private JLabel lblStatus;
+	private JButton btnAdicionar;
+	private JButton btnEditar;
+	private JButton btnExcluir;
 
 	/**
 	 * Launch the application.
@@ -73,49 +76,49 @@ public class Agenda extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Agenda.class.getResource("/img/notebook.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		btnAdicionar = new JPanel();
-		btnAdicionar.setBorder(new EmptyBorder(5, 5, 5, 5));
+		btnTela = new JPanel();
+		btnTela.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(btnAdicionar);
-		btnAdicionar.setLayout(null);
+		setContentPane(btnTela);
+		btnTela.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("ID:");
 		lblNewLabel.setBounds(10, 11, 31, 14);
-		btnAdicionar.add(lblNewLabel);
+		btnTela.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("NOME:");
 		lblNewLabel_1.setBounds(10, 46, 46, 14);
-		btnAdicionar.add(lblNewLabel_1);
+		btnTela.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("FONE:");
 		lblNewLabel_2.setBounds(10, 89, 46, 14);
-		btnAdicionar.add(lblNewLabel_2);
+		btnTela.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("E_mail:");
 		lblNewLabel_3.setBounds(10, 125, 46, 14);
-		btnAdicionar.add(lblNewLabel_3);
+		btnTela.add(lblNewLabel_3);
 
 		txtID = new JTextField();
 		txtID.setEditable(false);
 		txtID.setBounds(61, 8, 86, 20);
-		btnAdicionar.add(txtID);
+		btnTela.add(txtID);
 		txtID.setColumns(10);
 
 		txtNome = new JTextField();
 		txtNome.setBounds(61, 43, 193, 20);
-		btnAdicionar.add(txtNome);
+		btnTela.add(txtNome);
 		txtNome.setColumns(10);
 		//uso do validador para limitar o número de caracteres 
 		txtNome.setDocument(new Validador (50));
 
 		txtFone = new JTextField();
 		txtFone.setBounds(61, 86, 120, 20);
-		btnAdicionar.add(txtFone);
+		btnTela.add(txtFone);
 		txtFone.setColumns(10);
 
 		txtEmail = new JTextField();
 		txtEmail.setBounds(61, 122, 246, 20);
-		btnAdicionar.add(txtEmail);
+		btnTela.add(txtEmail);
 		txtEmail.setColumns(10);
 
 		JButton btnSobre = new JButton("");
@@ -133,7 +136,7 @@ public class Agenda extends JFrame {
 		btnSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSobre.setIcon(new ImageIcon(Agenda.class.getResource("/img/about.png")));
 		btnSobre.setBounds(376, 11, 48, 48);
-		btnAdicionar.add(btnSobre);
+		btnTela.add(btnSobre);
 
 		JButton btnPesquisar = new JButton("");
 		btnPesquisar.setContentAreaFilled(false);
@@ -149,23 +152,25 @@ public class Agenda extends JFrame {
 			}
 		});
 		btnPesquisar.setBounds(264, 43, 32, 32);
-		btnAdicionar.add(btnPesquisar);
+		btnTela.add(btnPesquisar);
 
-		JButton btnAdiconar = new JButton("");
-		btnAdiconar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAdiconar.setContentAreaFilled(false);
-		btnAdiconar.addActionListener(new ActionListener() {
+		btnAdicionar = new JButton("");
+		btnAdicionar.setEnabled(false);
+		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAdicionar.setContentAreaFilled(false);
+		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				adicionar();
 			}
 		});
-		btnAdiconar.setBorder(null);
-		btnAdiconar.setIcon(new ImageIcon(Agenda.class.getResource("/img/adicionar.png")));
-		btnAdiconar.setToolTipText("Adicionar");
-		btnAdiconar.setBounds(22, 172, 64, 64);
-		btnAdicionar.add(btnAdiconar);
+		btnAdicionar.setBorder(null);
+		btnAdicionar.setIcon(new ImageIcon(Agenda.class.getResource("/img/adicionar.png")));
+		btnAdicionar.setToolTipText("Adicionar");
+		btnAdicionar.setBounds(22, 172, 64, 64);
+		btnTela.add(btnAdicionar);
 
-		JButton btnEditar = new JButton("");
+		btnEditar = new JButton("");
+		btnEditar.setEnabled(false);
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setContentAreaFilled(false);
 		btnEditar.setToolTipText("Editar");
@@ -177,9 +182,10 @@ public class Agenda extends JFrame {
 		});
 		btnEditar.setBorder(null);
 		btnEditar.setBounds(106, 172, 64, 64);
-		btnAdicionar.add(btnEditar);
+		btnTela.add(btnEditar);
 
-		JButton btnExcluir = new JButton("");
+		btnExcluir = new JButton("");
+		btnExcluir.setEnabled(false);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				excluirContato();
@@ -191,7 +197,7 @@ public class Agenda extends JFrame {
 		btnExcluir.setToolTipText("Excluir");
 		btnExcluir.setBorder(null);
 		btnExcluir.setBounds(191, 172, 64, 64);
-		btnAdicionar.add(btnExcluir);
+		btnTela.add(btnExcluir);
 
 		JButton btnLimpar = new JButton("");
 		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -205,12 +211,12 @@ public class Agenda extends JFrame {
 			}
 		});
 		btnLimpar.setBounds(264, 172, 64, 64);
-		btnAdicionar.add(btnLimpar);
+		btnTela.add(btnLimpar);
 
 		lblStatus = new JLabel("");
 		lblStatus.setIcon(new ImageIcon(Agenda.class.getResource("/img/dboff.png")));
 		lblStatus.setBounds(361, 184, 48, 48);
-		btnAdicionar.add(lblStatus);
+		btnTela.add(lblStatus);
 
 		// subtistuir o click pela tecla <ENTER> em um botão
 		getRootPane().setDefaultButton(btnPesquisar);
@@ -218,13 +224,17 @@ public class Agenda extends JFrame {
 	}// Fim do construtor
 
 	/**
-	 * Limpar campos
+	 * Método resposável por limpar os campos e setar botões
 	 */
 	private void limparcampos() {
 		txtID.setText(null);
 		txtNome.setText(null);
 		txtFone.setText(null);
 		txtEmail.setText(null);
+		btnTela.setEnabled(false);
+		btnEditar.setEnabled(false);
+		btnExcluir.setEnabled(false);
+		
 	}// fim do método limpar campos()
 
 	/**
@@ -275,11 +285,16 @@ public class Agenda extends JFrame {
 				txtID.setText(rs.getString(1)); // 1 campo da tabela
 				txtFone.setText(rs.getString(3)); // 3 campo (fone)
 				txtEmail.setText(rs.getString(4)); // 4 campo (email)
+				//validação (liberação dos botões alterar e excluir)
+				btnEditar.setEnabled(true);
+				btnExcluir.setEnabled(true);
 
 			} else {
 
 				// se não existir um contato no banco
 				JOptionPane.showMessageDialog(null, "Contato Inexistente");
+				//validação (liberação do botão adicionar)
+				btnAdicionar.setEnabled(true);
 
 			}
 

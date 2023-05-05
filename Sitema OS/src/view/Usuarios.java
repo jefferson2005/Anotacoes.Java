@@ -38,6 +38,9 @@ public class Usuarios extends JDialog {
 	//Instanciar objetos JDBC
 	DAO dao = new DAO();
 	private JPasswordField txtSenha;
+	private JButton btnAdicionar;
+	private JButton btnEditar;
+	private JButton btnExcluir;
 
 	/**
 	 * Launch the application.
@@ -97,6 +100,8 @@ public class Usuarios extends JDialog {
 		txtLogin.setBounds(66, 87, 177, 20);
 		contentPanel.add(txtLogin);
 		txtLogin.setColumns(10);
+		//uso do validador para limitar o número de caracteres 
+		txtLogin.setDocument(new Validador (15));
 		
 		JButton btnPesquisar = new JButton("");
 		btnPesquisar.setContentAreaFilled(false);
@@ -121,18 +126,21 @@ public class Usuarios extends JDialog {
 		});
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.setBorder(null);
-		btnNewButton_1.setIcon(new ImageIcon(Usuarios.class.getResource("/img/eraser.png")));
+		btnNewButton_1.setIcon(new ImageIcon(Usuarios.class.getResource("/img/8686254_ic_fluent_text_clear_formatting_icon.png")));
 		btnNewButton_1.setToolTipText("Apagar");
-		btnNewButton_1.setBounds(54, 177, 48, 48);
+		btnNewButton_1.setBounds(43, 183, 48, 48);
 		contentPanel.add(btnNewButton_1);
 		
 		getRootPane().setDefaultButton(btnPesquisar);
 		
 		txtSenha = new JPasswordField();
-		txtSenha.setBounds(66, 118, 234, 20);
+		txtSenha.setBounds(66, 118, 177, 20);
 		contentPanel.add(txtSenha);
+		//uso do validador para limitar o número de caracteres 
+		txtSenha.setDocument(new Validador (8));
 		
-		JButton btnAdicionar = new JButton("");
+		btnAdicionar = new JButton("");
+		btnAdicionar.setEnabled(false);
 		btnAdicionar.setBorderPainted(false);
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,10 +150,11 @@ public class Usuarios extends JDialog {
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setBorder(null);
 		btnAdicionar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/adicionar.png")));
-		btnAdicionar.setBounds(315, 172, 71, 64);
+		btnAdicionar.setBounds(274, 167, 71, 64);
 		contentPanel.add(btnAdicionar);
 		
-		JButton btnEditar = new JButton("");
+		btnEditar = new JButton("");
+		btnEditar.setEnabled(false);
 		btnEditar.setBorderPainted(false);
 		btnEditar.setBorder(null);
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -156,10 +165,11 @@ public class Usuarios extends JDialog {
 		});
 		btnEditar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/editar.png")));
 		btnEditar.setToolTipText("Editar");
-		btnEditar.setBounds(226, 177, 60, 59);
+		btnEditar.setBounds(204, 172, 60, 59);
 		contentPanel.add(btnEditar);
 		
-		JButton btnExcluir = new JButton("");
+		btnExcluir = new JButton("");
+		btnExcluir.setEnabled(false);
 		btnExcluir.setBorder(null);
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -170,7 +180,7 @@ public class Usuarios extends JDialog {
 		btnExcluir.setBorderPainted(false);
 		btnExcluir.setIcon(new ImageIcon(Usuarios.class.getResource("/img/excluir.png")));
 		btnExcluir.setToolTipText("Excluir");
-		btnExcluir.setBounds(133, 177, 60, 59);
+		btnExcluir.setBounds(123, 172, 60, 59);
 		contentPanel.add(btnExcluir);
 	}
 	private void buscar() {
@@ -195,12 +205,16 @@ public class Usuarios extends JDialog {
 				txtID.setText(rs.getString(1)); //1 campo da tabela 
 				txtLogin.setText(rs.getString(3)); //3 campo (Login)
 				txtSenha.setText(rs.getString(4)); //4 campo (Senha)
-				
-				
+				//validação (liberação dos botões alterar e excluir)
+				btnEditar.setEnabled(true);
+				btnExcluir.setEnabled(true);
+						
 			} else {
 				
 				//se não existir um contato no banco 
 				JOptionPane.showMessageDialog(null, "Usuarío Inexistente");
+				btnAdicionar.setEnabled(true);
+
 				
 			}
 			
@@ -217,6 +231,9 @@ public class Usuarios extends JDialog {
 		txtNome.setText(null);
 		txtSenha.setText(null);
 		txtLogin.setText(null);
+		btnAdicionar.setEnabled(false);
+		btnEditar.setEnabled(false);
+		btnExcluir.setEnabled(false);
 			}//fim do método limpar campos()
 	
 	@SuppressWarnings("deprecation")
