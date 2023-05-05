@@ -43,6 +43,7 @@ public class Agenda extends JFrame {
 	private JButton btnAdicionar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
+	private JButton btnPesquisar;
 
 	/**
 	 * Launch the application.
@@ -138,7 +139,7 @@ public class Agenda extends JFrame {
 		btnSobre.setBounds(376, 11, 48, 48);
 		btnTela.add(btnSobre);
 
-		JButton btnPesquisar = new JButton("");
+		btnPesquisar = new JButton("");
 		btnPesquisar.setContentAreaFilled(false);
 		btnPesquisar.setToolTipText("Pesquisar");
 		btnPesquisar.setIcon(new ImageIcon(Agenda.class.getResource("/img/pesquisar.png")));
@@ -151,7 +152,7 @@ public class Agenda extends JFrame {
 
 			}
 		});
-		btnPesquisar.setBounds(264, 43, 32, 32);
+		btnPesquisar.setBounds(275, 31, 32, 32);
 		btnTela.add(btnPesquisar);
 
 		btnAdicionar = new JButton("");
@@ -231,10 +232,10 @@ public class Agenda extends JFrame {
 		txtNome.setText(null);
 		txtFone.setText(null);
 		txtEmail.setText(null);
-		btnTela.setEnabled(false);
+		btnAdicionar.setEnabled(false);
 		btnEditar.setEnabled(false);
 		btnExcluir.setEnabled(false);
-		
+		btnPesquisar.setEnabled(true);		
 	}// fim do método limpar campos()
 
 	/**
@@ -288,14 +289,15 @@ public class Agenda extends JFrame {
 				//validação (liberação dos botões alterar e excluir)
 				btnEditar.setEnabled(true);
 				btnExcluir.setEnabled(true);
-
+				btnPesquisar.setEnabled(false);
+				
 			} else {
 
 				// se não existir um contato no banco
 				JOptionPane.showMessageDialog(null, "Contato Inexistente");
 				//validação (liberação do botão adicionar)
 				btnAdicionar.setEnabled(true);
-
+				btnPesquisar.setEnabled(false);
 			}
 
 		} catch (Exception e) {

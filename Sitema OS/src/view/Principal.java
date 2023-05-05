@@ -81,7 +81,7 @@ public class Principal extends JFrame {
 						lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/dboff.png")));
 					} else {
 						//System.out.println("Banco conectado");
-						lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/2124505_app_data_essential_ui_icon.png")));
+						lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/2124501_app_check_data_essential_ui_icon.png")));
 					}
 					// NUNCA esquecer de fechar a conexão 
 					con.close();

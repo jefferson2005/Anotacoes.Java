@@ -41,6 +41,7 @@ public class Usuarios extends JDialog {
 	private JButton btnAdicionar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
+	private JButton btnPesquisar;
 
 	/**
 	 * Launch the application.
@@ -103,7 +104,7 @@ public class Usuarios extends JDialog {
 		//uso do validador para limitar o número de caracteres 
 		txtLogin.setDocument(new Validador (15));
 		
-		JButton btnPesquisar = new JButton("");
+		btnPesquisar = new JButton("");
 		btnPesquisar.setContentAreaFilled(false);
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,7 +115,7 @@ public class Usuarios extends JDialog {
 		btnPesquisar.setBorder(null);
 		btnPesquisar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/pesquisar.png")));
 		btnPesquisar.setToolTipText("Pesquisar");
-		btnPesquisar.setBounds(338, 24, 48, 48);
+		btnPesquisar.setBounds(271, 11, 48, 48);
 		contentPanel.add(btnPesquisar);
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -128,7 +129,7 @@ public class Usuarios extends JDialog {
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setIcon(new ImageIcon(Usuarios.class.getResource("/img/8686254_ic_fluent_text_clear_formatting_icon.png")));
 		btnNewButton_1.setToolTipText("Apagar");
-		btnNewButton_1.setBounds(43, 183, 48, 48);
+		btnNewButton_1.setBounds(30, 177, 48, 48);
 		contentPanel.add(btnNewButton_1);
 		
 		getRootPane().setDefaultButton(btnPesquisar);
@@ -150,7 +151,7 @@ public class Usuarios extends JDialog {
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setBorder(null);
 		btnAdicionar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/adicionar.png")));
-		btnAdicionar.setBounds(274, 167, 71, 64);
+		btnAdicionar.setBounds(181, 172, 62, 62);
 		contentPanel.add(btnAdicionar);
 		
 		btnEditar = new JButton("");
@@ -165,7 +166,7 @@ public class Usuarios extends JDialog {
 		});
 		btnEditar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/editar.png")));
 		btnEditar.setToolTipText("Editar");
-		btnEditar.setBounds(204, 172, 60, 59);
+		btnEditar.setBounds(253, 175, 60, 59);
 		contentPanel.add(btnEditar);
 		
 		btnExcluir = new JButton("");
@@ -180,7 +181,7 @@ public class Usuarios extends JDialog {
 		btnExcluir.setBorderPainted(false);
 		btnExcluir.setIcon(new ImageIcon(Usuarios.class.getResource("/img/excluir.png")));
 		btnExcluir.setToolTipText("Excluir");
-		btnExcluir.setBounds(123, 172, 60, 59);
+		btnExcluir.setBounds(105, 172, 64, 64);
 		contentPanel.add(btnExcluir);
 	}
 	private void buscar() {
@@ -208,13 +209,15 @@ public class Usuarios extends JDialog {
 				//validação (liberação dos botões alterar e excluir)
 				btnEditar.setEnabled(true);
 				btnExcluir.setEnabled(true);
+				btnPesquisar.setEnabled(false);
 						
 			} else {
 				
 				//se não existir um contato no banco 
 				JOptionPane.showMessageDialog(null, "Usuarío Inexistente");
 				btnAdicionar.setEnabled(true);
-
+				btnPesquisar.setEnabled(false);
+				limparcampos();
 				
 			}
 			
@@ -234,6 +237,7 @@ public class Usuarios extends JDialog {
 		btnAdicionar.setEnabled(false);
 		btnEditar.setEnabled(false);
 		btnExcluir.setEnabled(false);
+		btnPesquisar.setEnabled(true);
 			}//fim do método limpar campos()
 	
 	@SuppressWarnings("deprecation")
@@ -287,9 +291,12 @@ public class Usuarios extends JDialog {
 				} else if (txtLogin.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Digite o login do Usuário");
 					txtLogin.requestFocus();
-				} else if (txtLogin.getText().isEmpty()) {
+				} else if (txtSenha.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Digite a Senha do Usuário");
 					txtSenha.requestFocus();
+				}else {
+				
+					
 					
 					// Lógica principal
 					// CRUD - Update
@@ -329,7 +336,7 @@ public class Usuarios extends JDialog {
 							JOptionPane.YES_NO_OPTION);
 					if (confirma == JOptionPane.YES_NO_OPTION) {
 						//CRUD - Delete
-						String delete = "delete from  usuarios where id=?";
+						String delete = "delete from usuarios where id=?";
 						//tratamento de exceções
 						try {
 							//abrir a conexão 
@@ -343,7 +350,7 @@ public class Usuarios extends JDialog {
 							//limpar Campos
 							limparcampos();
 							//exibir uma mensagem ao usuário
-							JOptionPane.showMessageDialog(null, " usuarios excluido");
+							JOptionPane.showMessageDialog(null, " usuario excluido");
 							//fechar a conexão 
 							con.close();
 						} catch (Exception e) {
