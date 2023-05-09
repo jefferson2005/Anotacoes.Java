@@ -115,7 +115,7 @@ public class Usuarios extends JDialog {
 		btnPesquisar.setBorder(null);
 		btnPesquisar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/pesquisar.png")));
 		btnPesquisar.setToolTipText("Pesquisar");
-		btnPesquisar.setBounds(271, 11, 48, 48);
+		btnPesquisar.setBounds(253, 73, 48, 48);
 		contentPanel.add(btnPesquisar);
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -188,7 +188,7 @@ public class Usuarios extends JDialog {
 		//Dica - testar o evento preimeiro
 		//System.out.println("teste do botão buscar");
 		// Criar ua variável com a query (instruções do banco)
-		String read = "select * from usuarios where nome = ?";
+		String read = "select * from usuarios where login = ?";
 		//Tratamento de exceções 
 		try {
 			//Abrir a conexão 
@@ -197,14 +197,15 @@ public class Usuarios extends JDialog {
 			//Preparar a exucução da query(instrução sql - CRUD Read)
 			//O paraêmtro 1 substitui a ? pelo conteúdo da caixa de texto
 			pst = con.prepareStatement(read);
-			pst.setString(1, txtNome.getText());
+			pst.setString(1, txtLogin.getText());
 			//executar a query e buscar o resultado
 			rs = pst.executeQuery();
 			//uso da estrutura if else parar verificar se existe o contato
 			//rs.next() -> se existir um contato no banco
 			if (rs.next()) {
 				txtID.setText(rs.getString(1)); //1 campo da tabela 
-				txtLogin.setText(rs.getString(3)); //3 campo (Login)
+				txtNome.setText(rs.getString(2)); //2campo (nome)
+				txtLogin.setText(rs.getString(3));//3 campo (Login)
 				txtSenha.setText(rs.getString(4)); //4 campo (Senha)
 				//validação (liberação dos botões alterar e excluir)
 				btnEditar.setEnabled(true);
@@ -216,9 +217,7 @@ public class Usuarios extends JDialog {
 				//se não existir um contato no banco 
 				JOptionPane.showMessageDialog(null, "Usuarío Inexistente");
 				btnAdicionar.setEnabled(true);
-				btnPesquisar.setEnabled(false);
-				limparcampos();
-				
+				btnPesquisar.setEnabled(false);				
 			}
 			
 		}catch (Exception e) {
@@ -239,8 +238,9 @@ public class Usuarios extends JDialog {
 		btnExcluir.setEnabled(false);
 		btnPesquisar.setEnabled(true);
 			}//fim do método limpar campos()
-	
-	@SuppressWarnings("deprecation")
+	/**
+	 * Método pra adicionar um novo contato
+	 */
 	private void adicionar() {
 		// System.out.println("teste");
 		// Validação de campos obrigatóriios
@@ -257,7 +257,7 @@ public class Usuarios extends JDialog {
 			
 			// lógica pricipal
 			// CRUD Creat
-			String create = "insert into usuarios (nome,login,senha) values (?,?,?)";
+			String create = "insert into usuarios (nome,login,senha) values (?,?,md5(?))";
 			// tratamento com exceções
 			try {
 				//abrir conexão 
@@ -300,7 +300,7 @@ public class Usuarios extends JDialog {
 					
 					// Lógica principal
 					// CRUD - Update
-					String update = "update usuarios set nome=?, login=?, senha=? where id=?";
+					String update = "update usuarios set nome=?, login=?, senha = md5(?) where id=?";
 					// tratamentos de exceçoes
 					try {
 
