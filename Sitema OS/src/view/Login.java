@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +40,7 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtLogin;
+	private JTextField txtLogins;
 	private JPasswordField txtSenha;
 	private JLabel lblStatus;
 
@@ -57,11 +59,17 @@ public class Login extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				status();
+			}
+		});
 		setTitle("InfoX - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 201);
@@ -70,28 +78,30 @@ public class Login extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		lblStatus = new JLabel("");
 		lblStatus.addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent event) {
 			}
+
 			public void ancestorMoved(AncestorEvent event) {
 			}
+
 			public void ancestorRemoved(AncestorEvent event) {
 			}
 		});
 		lblStatus.setIcon(new ImageIcon(Login.class.getResource("/img/9069340_database_fail_icon.png")));
-		lblStatus.setBounds(365, 114, 48, 48);
+		lblStatus.setBounds(376, 114, 48, 48);
 		contentPane.add(lblStatus);
 
-		JLabel lblLogin = new JLabel("Login:");
-		lblLogin.setBounds(27, 22, 46, 14);
-		contentPane.add(lblLogin);
+		JLabel lblLogins = new JLabel("Login:");
+		lblLogins.setBounds(27, 22, 46, 14);
+		contentPane.add(lblLogins);
 
-		txtLogin = new JTextField();
-		txtLogin.setBounds(110, 19, 223, 20);
-		contentPane.add(txtLogin);
-		txtLogin.setColumns(10);
+		txtLogins = new JTextField();
+		txtLogins.setBounds(110, 19, 223, 20);
+		contentPane.add(txtLogins);
+		txtLogins.setColumns(10);
 
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setBounds(27, 62, 46, 14);
@@ -103,27 +113,26 @@ public class Login extends JFrame {
 		btnAcessar.setToolTipText("Acessar");
 		btnAcessar.setIcon(new ImageIcon(Login.class.getResource("/img/9071220_enter_key_icon.png")));
 		btnAcessar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
+			public void actionPerformed(ActionEvent e) {
 				logar();
 			}
-		});	
-		btnAcessar.setBounds(365, 22, 48, 48);
+		});
+		btnAcessar.setBounds(376, 22, 48, 48);
 		contentPane.add(btnAcessar);
 		txtSenha = new JPasswordField();
 		txtSenha.setBounds(110, 59, 223, 20);
 		contentPane.add(txtSenha);
-		
+
 		getRootPane().setDefaultButton(btnAcessar);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBackground(new Color(255, 128, 192));
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setForeground(new Color(255, 128, 192));
 		lblNewLabel.setBounds(0, 114, 434, 48);
 		contentPane.add(lblNewLabel);
-		
+
 	}// Fim do construtor
-	
 
 	/**
 	 * Método para autenticar um usuário
@@ -136,9 +145,9 @@ public class Login extends JFrame {
 		
 		// validação
 
-		if (txtLogin.getText().isEmpty()) {
+		if (txtLogins.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o login");
-			txtLogin.requestFocus();
+			txtLogins.requestFocus();
 		} else if (capturaSenha.length() == 0) {
 			JOptionPane.showMessageDialog(null, "Preencha a senha");
 			txtSenha.requestFocus();
@@ -149,7 +158,7 @@ public class Login extends JFrame {
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(read);
-				pst.setString(1, txtLogin.getText());
+				pst.setString(1, txtLogins.getText());
 				pst.setString(2, capturaSenha);
 				rs = pst.executeQuery();
 				if (rs.next()) {
@@ -166,26 +175,22 @@ public class Login extends JFrame {
 				System.out.println(e);
 			}
 		}
-		}
-	
-		private void status() {
-			try {
-				//abrir a conexão 
-				con = dao.conectar();
-				if (con == null) {
-					//System.out.println("Erro de conexão");
-					lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/dboff.png")));
-				} else {
-					//System.out.println("Banco conectado");
-					lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9069499_database_success_icon.png")));
-				}
-				// NUNCA esquecer de fechar a conexão 
-				con.close();
-			} catch (Exception e) {
-				System.out.println(e);
+	}
+	private void status() {
+		try {
+			//abrir a conexão 
+			con = dao.conectar();
+			if (con == null) {
+				//System.out.println("Erro de conexão");
+				lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9069340_database_fail_icon.png")));
+			} else {
+				//System.out.println("Banco conectado");
+				lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9069499_database_success_icon.png")));
 			}
-			
-		}//Fim do método status()
-	
-
+			// NUNCA esquecer de fechar a conexão 
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}//Fim do método status()
 }// Fim do código
