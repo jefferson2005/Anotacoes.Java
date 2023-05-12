@@ -1,7 +1,10 @@
 package br.com.projeto.papelaria.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 
 import br.com.projeto.papelaria.dominio.Usuario;
 import br.com.projeto.papelaria.repository.AtualizarApagar;
@@ -71,10 +74,36 @@ public class DAOUsuario extends Conexao implements AtualizarApagar<Usuario> {
 	public Boolean logar(Usuario usuario) {
 		Boolean logou = true;
 		
+		try {
+			abrirBanco();
+			String sql = "Select * from usuario where nomeusuario=? and senha = ?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1,usuario.getNomeUsuario());
+			pst.setString(2,usuario.getSenha());
+			rs = pst.executeQuery();
+			
+			if(rs.next()) {
+				logou = true;
+			}
+			else {
+				logou = false;
+			}
+		}
+		catch(SQLException se) {
+			new Exception("Erro ao executar a consulta"+ se.getMessage());
+		}
+		catch(Exception e) {
+			new Exception("Erro inesperado"+ e.getMessage());
+		}
+		finally {
+			fecharBanco();
+		}
+		
 		return logou;
 	}
 
 	public Boolean sair() {
 		return true;
 	}
+
 }
