@@ -129,7 +129,7 @@ public class Principal extends JFrame {
 		
 		lblData = new JLabel("New label");
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblData.setBounds(10, 393, 274, 26);
+		lblData.setBounds(10, 393, 437, 26);
 		contentPane.add(lblData);
 		lblStatus.setBounds(550, 360, 74, 91);
 		lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/2124505_app_data_essential_ui_icon.png")));
@@ -183,6 +183,12 @@ public class Principal extends JFrame {
 		contentPane.add(lblNomeEmpresa);
 		
 		JButton btnClientes = new JButton("");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clientes clientes = new Clientes();
+				clientes.setVisible(true);
+			}
+		});
 		btnClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnClientes.setToolTipText("Clientes");
 		btnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/4850490_clients_communication_discussion_media_social_icon (1).png")));
