@@ -329,8 +329,8 @@ public class Clientes extends JDialog {
 					pst.executeUpdate();
 					//Confirmar
 					JOptionPane.showMessageDialog(null, "Clientes adicionado");
+					limparCampos();
 					//fechar a conexão
-					
 				} catch (Exception e) {
 					System.out.println(e);
 				}
