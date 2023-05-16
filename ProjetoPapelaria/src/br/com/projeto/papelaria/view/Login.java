@@ -54,7 +54,7 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNomeUsuario = new JLabel("Nome de Usuário:");
-		lblNomeUsuario.setBounds(10, 40, 90, 14);
+		lblNomeUsuario.setBounds(10, 40, 117, 14);
 		contentPane.add(lblNomeUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha:");
