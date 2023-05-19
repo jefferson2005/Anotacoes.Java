@@ -15,7 +15,7 @@ public class CRUDChamado extends Conexao implements CRUD<Chamado>{
 	 
 	 try { 
 	 abrirConexao(); 
-	 String sql = "INSERT INTO chamado(solicitacao,departamentosolicitado,,descricaochamado,dataabertura)values(?,?,?,?)"; 
+	 String sql = "INSERT INTO chamado(solicitacao,departamentosolicitado,descricaochamado,dataabertura)values(?,?,?,?)"; 
 	 pst = con.prepareStatement(sql); 
 	 
 	 pst.setString(1, obj.getSolicitacao()); 
