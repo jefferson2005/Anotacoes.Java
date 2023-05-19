@@ -38,7 +38,7 @@ public class Conexao {
 			con.close();
 		}
 		catch(SQLException se) {
-			System.out.println("Não foij possível fechar o banco ->" +se.getMessage());
+			System.out.println("Não foi possível fechar o banco ->" +se.getMessage());
 		}
 		
 	}
