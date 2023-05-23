@@ -1,32 +1,24 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Iterator;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
 import model.DAO;
 import utils.Validador;
+import java.awt.Color;
 
 public class Clientes extends JDialog {
 	private JTextField txtNome;
@@ -43,14 +35,6 @@ public class Clientes extends JDialog {
 		private JButton btnExcluir;
 		private JButton btnEditar;
 		private JButton btnAdicionar;
-		private JButton btnPesquisar;
-		private JTextField txtCep;
-		private JTextField txtEndereco;
-		private JTextField txtNumero;
-		private JTextField txtComplemento;
-		private JTextField txtBairro;
-		private JTextField txtCidade;
-		private JComboBox cboUf;
 		
 		
 	/**
@@ -77,13 +61,8 @@ public class Clientes extends JDialog {
 		getContentPane().setForeground(new Color(255, 255, 255));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Clientes.class.getResource("/img/Cadastro Clientes.png")));
 		setTitle("Cadastro Clientes");
-		setBounds(100, 100, 651, 400);
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Clientes.class.getResource("/img/urso medico.png")));
-		lblNewLabel_1.setBounds(10, 203, 64, 64);
-		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(10, 44, 46, 14);
@@ -94,7 +73,7 @@ public class Clientes extends JDialog {
 		getContentPane().add(lblFone);
 		
 		JLabel lblemail = new JLabel("E-mail:");
-		lblemail.setBounds(10, 161, 46, 14);
+		lblemail.setBounds(10, 152, 46, 14);
 		getContentPane().add(lblemail);
 		
 		JLabel lblCpf = new JLabel("CPF:");
@@ -114,7 +93,7 @@ public class Clientes extends JDialog {
 		txtFone.setDocument(new Validador (15));
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(74, 158, 151, 20);
+		txtEmail.setBounds(74, 149, 151, 20);
 		getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		txtEmail.setDocument(new Validador (30));
@@ -125,21 +104,21 @@ public class Clientes extends JDialog {
 		txtCpf.setColumns(10);
 		txtCpf.setDocument(new Validador (11));
 		
-		btnPesquisar = new JButton("");
-		btnPesquisar.addActionListener(new ActionListener() {
+		JButton btnPesquisar_1 = new JButton("");
+		btnPesquisar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscar();
 			}
 		});
-		btnPesquisar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnPesquisar.setBorderPainted(false);
-		btnPesquisar.setDefaultCapable(false);
-		btnPesquisar.setContentAreaFilled(false);
-		btnPesquisar.setIcon(new ImageIcon(Clientes.class.getResource("/img/pesquisar.png")));
-		btnPesquisar.setBounds(235, 61, 48, 48);
-		getContentPane().add(btnPesquisar);
+		btnPesquisar_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnPesquisar_1.setBorderPainted(false);
+		btnPesquisar_1.setDefaultCapable(false);
+		btnPesquisar_1.setContentAreaFilled(false);
+		btnPesquisar_1.setIcon(new ImageIcon(Clientes.class.getResource("/img/pesquisar.png")));
+		btnPesquisar_1.setBounds(253, 61, 48, 48);
+		getContentPane().add(btnPesquisar_1);
 		
-		getRootPane().setDefaultButton(btnPesquisar);
+		getRootPane().setDefaultButton(btnPesquisar_1);
 		
 		JButton btnLimpar = new JButton("");
 		btnLimpar.addActionListener(new ActionListener() {
@@ -150,7 +129,7 @@ public class Clientes extends JDialog {
 		btnLimpar.setToolTipText("Limpar");
 		btnLimpar.setIcon(new ImageIcon(Clientes.class.getResource("/img/clear icon.png")));
 		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpar.setBounds(102, 300, 48, 48);
+		btnLimpar.setBounds(42, 202, 48, 48);
 		getContentPane().add(btnLimpar);
 		
 		JLabel lblID = new JLabel("ID:");
@@ -173,7 +152,7 @@ public class Clientes extends JDialog {
 		});
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setIcon(new ImageIcon(Clientes.class.getResource("/img/Editor.png")));
-		btnEditar.setBounds(377, 300, 48, 48);
+		btnEditar.setBounds(240, 202, 48, 48);
 		getContentPane().add(btnEditar);
 		
 		btnAdicionar = new JButton("");
@@ -186,7 +165,7 @@ public class Clientes extends JDialog {
 		});
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setIcon(new ImageIcon(Clientes.class.getResource("/img/ADD.png")));
-		btnAdicionar.setBounds(503, 300, 48, 48);
+		btnAdicionar.setBounds(339, 202, 48, 48);
 		getContentPane().add(btnAdicionar);
 		
 		btnExcluir = new JButton("");
@@ -199,97 +178,20 @@ public class Clientes extends JDialog {
 		btnExcluir.setToolTipText("Excluir Cliente");
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setIcon(new ImageIcon(Clientes.class.getResource("/img/Excluir Contato.png")));
-		btnExcluir.setBounds(226, 300, 48, 48);
+		btnExcluir.setBounds(135, 202, 48, 48);
 		getContentPane().add(btnExcluir);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setBackground(new Color(255, 128, 192));
 		lblNewLabel.setForeground(new Color(255, 128, 192));
-		lblNewLabel.setBounds(0, 290, 635, 71);
+		lblNewLabel.setBounds(0, 190, 434, 71);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel lblCep = new JLabel("CEP:");
-		lblCep.setBounds(343, 11, 46, 14);
-		getContentPane().add(lblCep);
-		
-		JLabel lblEndereco = new JLabel("Endereço:");
-		lblEndereco.setBounds(339, 61, 74, 14);
-		getContentPane().add(lblEndereco);
-		
-		JLabel lblNumero = new JLabel("Nº:");
-		lblNumero.setBounds(512, 61, 46, 14);
-		getContentPane().add(lblNumero);
-		
-		JLabel lblComplemento = new JLabel("Complemento:");
-		lblComplemento.setBounds(339, 122, 104, 14);
-		getContentPane().add(lblComplemento);
-		
-		JLabel lblBairro = new JLabel("Bairro:");
-		lblBairro.setBounds(512, 119, 102, 14);
-		getContentPane().add(lblBairro);
-		
-		JLabel lblCidade = new JLabel("Cidade:");
-		lblCidade.setBounds(339, 186, 46, 14);
-		getContentPane().add(lblCidade);
-		
-		JLabel lblUF = new JLabel("UF:");
-		lblUF.setBounds(516, 186, 46, 14);
-		getContentPane().add(lblUF);
-		
-		txtCep = new JTextField();
-		txtCep.setBounds(339, 30, 74, 20);
-		getContentPane().add(txtCep);
-		txtCep.setColumns(10);
-		
-		txtEndereco = new JTextField();
-		txtEndereco.setBounds(335, 81, 152, 20);
-		getContentPane().add(txtEndereco);
-		txtEndereco.setColumns(10);
-		
-		txtNumero = new JTextField();
-		txtNumero.setBounds(512, 80, 74, 20);
-		getContentPane().add(txtNumero);
-		txtNumero.setColumns(10);
-		
-		txtComplemento = new JTextField();
-		txtComplemento.setBounds(336, 144, 151, 20);
-		getContentPane().add(txtComplemento);
-		txtComplemento.setColumns(10);
-		
-		txtBairro = new JTextField();
-		txtBairro.setBounds(512, 144, 102, 20);
-		getContentPane().add(txtBairro);
-		txtBairro.setColumns(10);
-		
-		txtCidade = new JTextField();
-		txtCidade.setBounds(339, 203, 151, 20);
-		getContentPane().add(txtCidade);
-		txtCidade.setColumns(10);
-		
-		JButton btnBuscarCep = new JButton("");
-		btnBuscarCep.setDefaultCapable(false);
-		btnBuscarCep.setBorderPainted(false);
-		btnBuscarCep.setContentAreaFilled(false);
-		btnBuscarCep.setIcon(new ImageIcon(Clientes.class.getResource("/img/Buscar.png")));
-		btnBuscarCep.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 buscarCep();
-			}
-		});
-		btnBuscarCep.setBounds(423, 10, 48, 48);
-		getContentPane().add(btnBuscarCep);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setOpaque(true);
-		lblNewLabel_2.setBackground(new Color(255, 255, 255));
-		lblNewLabel_2.setBounds(0, 0, 312, 289);
-		getContentPane().add(lblNewLabel_2);
-		
-		cboUf = new JComboBox();
-		cboUf.setModel(new DefaultComboBoxModel(new String[] {"", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"}));
-		cboUf.setBounds(516, 202, 70, 21);
-		getContentPane().add(cboUf);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Clientes.class.getResource("/img/urso medico.png")));
+		lblNewLabel_1.setBounds(349, 11, 64, 64);
+		getContentPane().add(lblNewLabel_1);
 
 	}//Fim do construtor
 	
@@ -299,17 +201,10 @@ public class Clientes extends JDialog {
 		txtFone.setText(null);
 		txtEmail.setText(null);
 		txtCpf.setText(null);
-		txtCep.setText(null);
-		txtEndereco.setText(null);
-		txtBairro.setText(null);
-		txtCidade.setText(null);
-		txtComplemento.setText(null);
-		txtNumero.setText(null);
 		btnAdicionar.setEnabled(false);
 		btnEditar.setEnabled(false);
 		btnExcluir.setEnabled(false);
 		btnPesquisar.setEnabled(true);
-		
 	}
 	
 	private void buscar() {
@@ -336,12 +231,6 @@ public class Clientes extends JDialog {
 				txtFone.setText(rs.getString(3)); // 3 campo (fone)
 				txtEmail.setText(rs.getString(4));// 4 campo (email)
 				txtCpf.setText(rs.getString(5));//5 campo (CPF)
-				txtCep.setText(rs.getString(6));
-				txtEndereco.setText(rs.getString(7));
-				txtNumero.setText(rs.getString(8));
-				txtComplemento.setText(rs.getString(9));
-				txtBairro.setText(rs.getString(10));
-				txtCidade.setText(rs.getString(11));
 				//validação (liberação dos botões alterar e excluir)		
 				btnEditar.setEnabled(true);
 				btnExcluir.setEnabled(true);
@@ -392,12 +281,6 @@ public class Clientes extends JDialog {
 				pst.setString(3, txtEmail.getText());
 				pst.setString(4, txtCpf.getText());
 				pst.setString(5, txtID.getText());
-				pst.setString(6, txtCep.getText());
-				pst.setString(7, txtEndereco.getText());
-				pst.setString(8, txtNumero.getText());
-				pst.setString(9, txtComplemento.getText());
-				pst.setString(10,txtBairro.getText());
-				pst.setString(11,txtCidade.getText());
 				// executar a query
 				pst.executeUpdate();
 				// confirmar para o usuário
@@ -425,21 +308,11 @@ public class Clientes extends JDialog {
 			}else if (txtFone.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Preencha o Telefone do Cliente");
 				txtFone.requestFocus();
-			}else if(txtCep.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Preencha o CEP do Cliente");
-			}else if(txtEndereco.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Preencha o Endereço do Cliente");
-			}else if(txtNumero.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Preencha o Número do Cliente");
-			}else if(txtBairro.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Preencha o Nùmero do Cliente");
-			}else if(txtCidade.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Preenca a Cidade do Cliente");
 			} else {
 				
 				// lógica pricipal
 				// CRUD Creat
-				String create = "insert into clientes (nome,fone,email,cpf,cep,endereco,numero,complemento,bairro,cidade,) value (?, ?, ?, ? ,? ,? , ?, ?, ?, ?)";
+				String create = "insert into clientes (nome,fone,email,cpf) value (?, ?, ?, ?)";
 				// tratamento com exceções
 				try {
 					//abrir conexão 
@@ -450,18 +323,12 @@ public class Clientes extends JDialog {
 					pst.setString(2, txtFone.getText());
 					pst.setString(3, txtEmail.getText());
 					pst.setString(4, txtCpf.getText());
-					pst.setString(5, txtCep.getText());
-					pst.setString(6, txtEndereco.getText());
-					pst.setString(7, txtNumero.getText());
-					pst.setString(8, txtComplemento.getText());
-					pst.setString(9,txtBairro.getText());
-					pst.setString(10,txtCidade.getText());
 					//executar a query(instruição sql (CRUD - Creat))
 					pst.executeUpdate();
 					//Confirmar
 					JOptionPane.showMessageDialog(null, "Clientes adicionado");
-					limparCampos();
 					//fechar a conexão
+					
 				} catch (Exception e) {
 					System.out.println(e);
 				}
@@ -499,51 +366,5 @@ public class Clientes extends JDialog {
 }
 
 	}// Fim do Método editar contato
-			
-			/**
-			 * buscarCep
-			 */
-			private void buscarCep() {
-				String logradouro = "";
-				String tipoLogradouro = "";
-				String resultado = null;
-				String cep = txtCep.getText();
-				try {
-					URL url = new URL("http://cep.republicavirtual.com.br/web_cep.php?cep=" + cep + "&formato=xml");
-					SAXReader xml = new SAXReader();
-					Document documento = xml.read(url);
-					Element root = documento.getRootElement();
-					for (Iterator<Element> it = root.elementIterator(); it.hasNext();) {
-						Element element = it.next();
-						if (element.getQualifiedName().equals("cidade")) {
-							txtCidade.setText(element.getText());
-						}
-						if (element.getQualifiedName().equals("bairro")) {
-							txtBairro.setText(element.getText());
-						}
-						if (element.getQualifiedName().equals("uf")) {
-							cboUf.setSelectedItem(element.getText());
-						}
-						if (element.getQualifiedName().equals("tipo_logradouro")) {
-							txtEndereco.setText(element.getText());
-						}
-						if (element.getQualifiedName().equals("logradouro")) {
-							logradouro = element.getText();
-						}
-						if (element.getQualifiedName().equals("resultado")) {
-							resultado = element.getText();
-							if (resultado.equals("1")) {
-								System.out.println("OK");
-								} else {
-									JOptionPane.showMessageDialog(null, "CEP não encontrado");
-								}
-							}
-						}
-						txtEndereco.setText(tipoLogradouro + " " + logradouro);
-				} catch (Exception e) {
-						System.out.println(e);
-				}
-			}
-
 }//Fim do Codigo
 

@@ -1,0 +1,101 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.Toolkit;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+
+public class Clientes extends JDialog {
+	private JTextField txtNome;
+	private JTextField txtFone;
+	private JTextField txtEmail;
+	private JTextField txtCpf;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Clientes dialog = new Clientes();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public Clientes() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Clientes.class.getResource("/img/Cadastro Clientes.png")));
+		setTitle("Cadastro Clientes");
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(null);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(10, 44, 46, 14);
+		getContentPane().add(lblNome);
+		
+		JLabel lblFone = new JLabel("Telefone:");
+		lblFone.setBounds(10, 82, 57, 14);
+		getContentPane().add(lblFone);
+		
+		JLabel lblemail = new JLabel("E-mail:");
+		lblemail.setBounds(10, 120, 46, 14);
+		getContentPane().add(lblemail);
+		
+		JLabel lblcpf = new JLabel("CPF:");
+		lblcpf.setBounds(10, 162, 46, 14);
+		getContentPane().add(lblcpf);
+		
+		txtNome = new JTextField();
+		txtNome.setBounds(74, 41, 110, 20);
+		getContentPane().add(txtNome);
+		txtNome.setColumns(10);
+		
+		txtFone = new JTextField();
+		txtFone.setBounds(74, 79, 110, 20);
+		getContentPane().add(txtFone);
+		txtFone.setColumns(10);
+		
+		txtEmail = new JTextField();
+		txtEmail.setBounds(74, 117, 110, 20);
+		getContentPane().add(txtEmail);
+		txtEmail.setColumns(10);
+		
+		txtCpf = new JTextField();
+		txtCpf.setBounds(74, 159, 110, 20);
+		getContentPane().add(txtCpf);
+		txtCpf.setColumns(10);
+		
+		JButton btnPesquisar = new JButton("");
+		btnPesquisar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnPesquisar.setBorderPainted(false);
+		btnPesquisar.setDefaultCapable(false);
+		btnPesquisar.setContentAreaFilled(false);
+		btnPesquisar.setIcon(new ImageIcon(Clientes.class.getResource("/img/pesquisar.png")));
+		btnPesquisar.setBounds(210, 141, 48, 48);
+		getContentPane().add(btnPesquisar);
+		
+		getRootPane().setDefaultButton(btnPesquisar);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setToolTipText("Limpar");
+		btnNewButton.setIcon(new ImageIcon(Clientes.class.getResource("/img/clear icon.png")));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setBounds(19, 202, 48, 48);
+		getContentPane().add(btnNewButton);
+
+	}//Fim do construtor
+}//Fim do Codigo
+
