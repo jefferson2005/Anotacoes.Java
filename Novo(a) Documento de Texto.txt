@@ -1,0 +1,375 @@
+SISTEMA: Conjunto de componentes interligados que gera, coleta, processa e distribui informações.
+
+BANCO DE DADOS: Bancos de dados ou bases de dados são sistemas para armazenar informações que se relacionam de forma a criar um sentido. O banco de dados é considerado o principal componente do projeto.
+
+SGDB: SGDB ou Sistema de Gerenciamento de Banco de Dados é a ferramenta usada para gerenciar o banco de dados.
+
+DADOS: Dados são conteúdos armazenados no Servidor de Banco de Dados. O banco de dados pode armazenar texto, números, imagens, bídeos etc.
+
+INFORMAÇÕES: Informações são obtidas à partir do processamento dos dados armazenados no servidor.
+
+exemplo: 
+mouse (12,50 a unidade)
+pen drive (20,00 a unidade)
+HD externo (220,00 a unidade)
+
+Processamento dos dados:
+mouse: 2 x 12,50 = 25,00
+pen drive: 2 x 20,00 = 40,00
+HD externo: 220,00
+Ttoal da compra: (25,00 + 40,00 + 220,00) = 285,00
+Troco = (300,00 - 285,00) = 15,00
+
+> OR = ( 3 OPERAÇÕES)
+< ( 1 OPERAÇÃO)
+
+TIPOS:
+Modelo Relacional:
+ER (Entidade Relacionamento)
+SQL (Linguagem de Consulta Estruturada)
+
+Modelo Não Relacional
+NOSQL (Not Only SQL) = MongoDB
+
+SERVIDOR:
+Rede Local: Sistemas para comércio de bens e serviços
+Cloud: Sistemas para WEB (E-Commerce)
+
+-------MYSQL--------
+mysql -u dba -p
+CTRL + ENTER = EXECUTAR
+-- comentários em linha
+show databases;
+
+-- apagar um banco de dados
+drop database dbagenda;
+
+-- criar um bando de dados
+create database dbagenda;
+
+-- selecionar o bando de dados a ser trabalhado
+use dbagenda;
+
+-- criando uma tabela no banco de dados
+-- int (tipo de dados: número inteiro)
+-- primary key (chave primária)
+-- auto_increment (numeração automática)
+-- varchar (tipo de dados: String)
+-- not null (campo obrigatório)
+
+create table contatos(
+	id int primary key auto_increment,
+	nome varchar(50) not null,
+  fone varchar(15) not null,
+  email varchar(50)
+);
+
+-- descrever a tabela
+describe contatos;
+
+-- selecionar tudo da tabela
+select * from contatos;
+
+-- criar modelo MySQL 
+database
+	reverse engineer
+		selecionar onde quer fazer o modelo
+			salvar como pdf (export PDF)
+
+-- CRUD Create
+insert into contatos (nome,fone,email) values ('Sander Hideki','11945314964','hideki@gmail.com');
+insert into contatos (nome,fone) values ('Albert Hidekas','11940028921');
+
+-- simulando um erro
+insert into contatos(nome,email) values ('Robson Vaamonde','vava@linuxmint.com');
+
+-- CRUD Read
+-- selecionar tudo na tabela
+select * from contatos;
+
+-- selecionar e ordenar
+select * from contatos order by nome;
+select * from contatos order by nome desc;
+
+-- pesquisas avançadas
+select nome from contatos;
+select nome,email from contatos;
+select * from contatos where nome like 'al%';
+select * from contatos where nome = 'Albert Hidekas';
+select * from contatos where id = 1;
+
+-- relatório personalizados com apelidos para os campos
+select nome as Contato, fone as Telefone, email as E_mail from contatos order by nome;
+
+-- CRUD Update
+-- CUIDADO !!! (Sempre usar a cláusula where junto com a chave primária)
+update contatos set fone = '11995245699' where id = 2;
+update contatos set fone = '11988752514' where nome = 'Cleitin Madagascar'; (NÃO FUNCIONA NO WORKBECH POR CONTA DE TALVEZ TER NOME REPETIDO)
+update contatos set fone = '11988752514' ,email = 'milagresansan@msn.com' where id = 8;
+update contatos set nome = 'Bleison Gracias', fone = '11 949531492', email = 'Graciasmanito@hotmail.com' where id = 4;
+update contatos set email = 'MadagascarCleitun@msn.com' where id = 11;
+update contatos set fone = '11964625122' where id = 3;
+
+-- CRUD Delete
+-- CUIDADO !!! (Sempre usar a cláusula where junto com a chave primária)
+delete from contatos where id = 3;
+
+-- Alterações na estrutura da tabela
+-- adicionar uma coluna a tabela
+alter table contatos add column obs varchar (100);
+
+-- adicionar uma coluna após um local específico
+alter table contatos add column fone2 varchar(15) not null after fone;
+
+-- alterando tipo de dados ou validações
+-- ATENÇÃO aos dados já cadastrados!
+alter table contatos modify fone2 varchar (20);
+
+-- Excluir uma coluna
+alter table contatos drop column obs;
+
+-- Excluir a tabela
+drop table contatos;
+
+-- uso do md5() para criptografar uma senha
+insert into usuarios (nome,login,senha) values ('Sander Hideki','hidekibtw', md5('123@senac'));
+
+ECLIPSE:
+CTRL + SHIFT + O = IMPORTAR / IMPORTAÇÃO
+CTRL + SHIFT + F = ALINHAMENTO DO CÓDIGO
+ALT + SHIFT + Y = QUEBRA DE LINHA
+try + CTRL + ESPAÇO -> (try - catch)
+
+help
+	eclipeMarketplace
+		pesquisar "window builder"
+			instalar o primeiro que aparecer
+			
+UX = USER EXPERIENCE (O MAIS IMPORTANTE)
+UI = USER INTERFACE
+
+Desenvolvimento da interface gráfica:
+Dicas:
+<ctrl><shift><f> alinhamento do código
+Métodos no java: (código que pode ser reutilizado)
+para criar um método (função) simples usamos a palavra void, seguido do nome do método:
+Exemplo: private void limparCampos() {}
+
+Backup / Restore (Projeto Java - Eclipse)
+Back-Up:
+1 - Pasta Workspace
+2 - Copiar a pasta inteira do projeto 
+
+Restore:
+1 - Copiar a pasta do projeto para o workspace
+2 - No eclipse:
+	File -> Import -> General -> Expandir pasta General -> Exisiting Projects into Workspace -> Select root directory [browse] -> selecionar o workspace -> selecionar projeto a ser importado
+
+CRUD: Create, Read, Update, Delete (são as quatro operações básicas que podem ser realizadas em banco de dados que usam o modelo relacional.)
+
+CREATE (inserção do registro(dados) na tabela)
+READ (pesquisa dos dados na(s) tabela(s))
+UPDATE (alteração de algum registro da tabela)
+DELETE (exclusão de um registro da tabela)
+
+API (conjunto de ferramentas) = Disponibilizar recursos (juntar recursos) 
+
+JAVA JDBC(Java DataBase Connectivity):
+4 CLASSES:
+- PreparedStatement
+- DriverManager (USADO APENAS UMA VEZ)
+- Connection (USADO O TEMPO TODO): Abre e fecha a conexão
+- ResultSet
+
+BAIXAR DRIVER DO BANCO DE DADOS:
+SITE MYSQL -> DOWNLOAD
+MySQL Community Downloads:
+Conecctor/J (importante ser da mesma versão do WorkBench)
+BAIXAR PARA PLATAFORMA INDEPENDENTE EM ZIP e extrair esse ZIP em qualquer local
+No ECLIPSE criar um FOLDER no Projeto AGENDA DE CONTATOS com o nome "lib"
+Depois abrir a pasta do ZIP "mysql-connector" e arrastar o mysql-connector para a pasta lib dentro do ECLIPSE 
+Clique com o botão direito no "mysql-connector" que esta dentro da pasta lib e selecione o Build Path -> Add Build Path
+
+// Variáveis para configurar o bando de dados
+private String driver = "com.mysql.cj.jdbc.Driver";
+private String url = "jdbc:mysql://10.26.44.226:3306/dbagenda";
+private String user = "root";
+private String password = "123@senac";
+// Criação de um objeto para uso da classe Connection(JDBC)
+private Connection con;	
+
+public Connection conectar() {
+// Tratamento de exceções 
+try {
+// As linhas abaixo abrem a conexão com o banco
+Class.forName(driver)
+con = DriverManager.getConnection(url, user, password);
+return con;
+} catch (Exception e) {
+System.out.println(e);
+return null;
+    }
+}
+
+// Método responsável por exibir o status da conexão
+	
+private void status(){
+	try {
+		//abrir a conexão
+		con = dao.conectar();
+		if(con == null) {
+			System.out.println("Erro de conexão");
+			lblStatus.setIcon(new ImageIcon(Agenda.class.getResource("/img/dboff.png")));
+		} else {
+			System.out.println("Banco conectado");
+			lblStatus.setIcon(new ImageIcon(Agenda.class.getResource("/img/dbon.png")));
+		}
+		//NUNCA esquecer de fechar a conexão
+		con.close();
+	} catch (Exception e) {
+		System.out.println(e);
+	}
+		
+}	
+
+Selecione JFrame -> adicionar evento -> window -> window activate
+
+Design -> Propriedades -> selecionar icone dbon/dboff -> converte local to field ( NÃO ESQUECER)
+
+Design -> Propriedades -> selecionar icone Lupa de Pesquisa -> add event handler -> action -> action performed (PERMITE FAZER CLICAR NO BOTAO)
+
+
+
+// Método para buscar um contato pelo nome
+
+	private void buscar() {
+		//dica - testar o evento primeiro
+		System.out.println("teste do botão buscar");
+	}
+
+//evento clicar no botão
+	buscar();
+	
+POO: 
+- abstração
+- Herança
+- Polimorfismo
+- Encapsulamento
+
+ABSTRAÇÃO: A abstração é usada para definir um modelo para a criação dos objetos. Na linguagem Java usamos uma classe para criar um modelo.
+	
+	Classe Modelo: Para explicar uma classe modelo vamos fazer uma analogia com a patente da Lego que descreve as características de um bloco além de mostrar que é possivel encaixar um bloco no outro. Este modelo será usado para criar os objetos(blocos).
+	Objetos: Objetos são criados à partir da classe modelo. Percebam na imagem que temos blocos de diferentes cores e tamanhos, porém todos foram criados a partir de um modelo.
+	
+EX MODELO: 
+public class Bloco {
+ //atributos
+	int resistencia;
+	String textura;
+
+//Construtor (iniciar um código para cada objeto)
+//O constutor precisa ter o mesmo nome da classe
+	public Bloco() {
+		System.out.println(""); //pular uma linha
+		System.out.println(" ___");
+		System.out.println("|   |");
+		System.out.println("|___|");
+	}
+	
+ //métodos
+ //void -> métodos simples (executar uma ação)
+	void construir() {
+		System.out.println("Bloco colocado");
+	}
+	
+	void minerar() {
+		System.out.println("Recursos obtidos");
+	}
+	
+	void craftar () {
+		System.out.println("Item criado");
+	}
+	
+}
+
+EX OBJETO:
+//instanciar(criar) um objeto
+		Bloco blocoTerra = new Bloco();
+		blocoTerra.resistencia = 1;
+		blocoTerra.textura = "Terra";
+		System.out.println("Bloco " + blocoTerra.textura);
+		System.out.println("Resistência: " + blocoTerra.resistencia);
+		blocoTerra.construir();
+		blocoTerra.minerar();	
+		
+		Bloco blocoMadeira = new Bloco();
+		blocoMadeira.resistencia = 2;
+		blocoMadeira.textura = "Madeira";
+		System.out.println("Bloco " + blocoMadeira.textura);
+		System.out.println("Resistência: " + blocoMadeira.resistencia);
+		blocoMadeira.minerar();
+		blocoMadeira.craftar();
+	}
+
+}
+
+
+OBS (CRIAR UM CHASSI ALEATÓRIO):
+	System.out.println("_______________________");
+	// a linha abaixo cria um objeto da nome chassi
+	// chassi também é uma variável que recebe caracteres dentro de ()
+	String chassi = new String("1821O213218RAS84HRSJA84");
+	// a linha abaixo cria um objeto de nome gerador
+	// random é usado para gerar números aleatórios
+	Random gerador = new Random();
+	System.out.print("Chassi: * ");
+	// o laço abaixo imprime aleatóriamente 16 números da String
+	for (int i = 1; i < 16; i++) {
+		char numeracao = (char) gerador.nextInt(chassi.length());
+		System.out.print(chassi.charAt(numeracao));
+	}
+	System.out.println(" *");
+
+
+DICA: 
+objeto (substantivo)
+atributo (adjetivo)
+método (verbo)
+
+
+HERANÇA:
+Na herança criamos uma subclasse da classe modelo estendendo seus atribuitos e métodos com o objeto de criar outros tipos de objetos reutilizando atribuitos métodis da classe modelo.
+
+EX: 
+	Bloco:                        Enxada:
+	resistencia: int	      conquista: boolean
+	textura: String               arar(): void
+	Construir(): void
+	minerar(): void
+	craftar(): void
+
+boolean : (variável - true / false
+
+Criar construtor personalizado: 
+Botão direito -> source -> Generate Constructor using Fields -> Generate
+
+
+//PlainDocument -> recursos para formatação
+public class Validador extends PlainDocument {
+	// variável que irá armazenar o número máximo de caracteres permitidos
+	private int limite;
+	// construtor personalizado -> será usado pela caixas de texto JTextFiled
+
+	public Validador(int limite) {
+		super();
+		this.limite = limite;
+	}
+	// Método interno para validar o limite de caracteres
+	// BadLocation -> Tratamento de exceções 
+	public void inserirString(int ofs, String str, AttributeSet a) throws BadLocationException {
+		(OBS:Importar o Swing quando for importar)
+	}
+	
+}
+
+botao direito -> adicionar evento -> Key -> KeyTyped  (APENAS ACEITA RESPOSTA EM NÚMERO, NÃO ACEITA LETRA)
