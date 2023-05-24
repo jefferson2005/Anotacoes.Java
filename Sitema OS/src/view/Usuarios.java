@@ -77,7 +77,9 @@ public class Usuarios extends JDialog {
 		contentPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//clicar no painel JDialog
 				scrollPaneUsers.setVisible(false);
+				txtNome.setText(null);
 			}
 		});
 		contentPanel.setForeground(new Color(255, 255, 255));
