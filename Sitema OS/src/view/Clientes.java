@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.JobAttributes;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -376,10 +377,14 @@ public class Clientes extends JDialog {
 		} else if (txtCpf.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Digita o CPF");
 			txtCpf.requestFocus();
+		}else if (txtCep.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Digite o seu CEP");
+		}else if (txtNumero.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Digite o seu Número");
 		}else {
 			// Lógica principal
 			// CRUD - Update
-			String upadate = "update clientes set nome=?, fone=?, email=?, cpf=? where idcli=?";
+			String upadate = "update clientes set nome=?, fone=?, email=?, cpf=?, cep=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, uf=? where idcli=?";
 			// tratamentos de exceçoes
 			try {
 
@@ -398,6 +403,7 @@ public class Clientes extends JDialog {
 				pst.setString(9, txtComplemento.getText());
 				pst.setString(10,txtBairro.getText());
 				pst.setString(11,txtCidade.getText());
+				pst.setLong(12, cboUf.getSelectedIndex());
 				// executar a query
 				pst.executeUpdate();
 				// confirmar para o usuário
@@ -439,7 +445,7 @@ public class Clientes extends JDialog {
 				
 				// lógica pricipal
 				// CRUD Creat
-				String create = "insert into clientes (nome,fone,email,cpf,cep,endereco,numero,complemento,bairro,cidade,) value (?, ?, ?, ? ,? ,? , ?, ?, ?, ?)";
+				String create = "insert into clientes (nome,fone,email,cpf,cep,endereco,numero,complemento,bairro,cidade,uf) value (?, ?, ?, ?, ? ,? ,? , ?, ?, ?, ?)";
 				// tratamento com exceções
 				try {
 					//abrir conexão 
@@ -456,10 +462,11 @@ public class Clientes extends JDialog {
 					pst.setString(8, txtComplemento.getText());
 					pst.setString(9,txtBairro.getText());
 					pst.setString(10,txtCidade.getText());
+					pst.setLong(11, cboUf.getSelectedIndex());
 					//executar a query(instruição sql (CRUD - Creat))
 					pst.executeUpdate();
 					//Confirmar
-					JOptionPane.showMessageDialog(null, "Clientes adicionado");
+					JOptionPane.showMessageDialog(null, "Cliente adicionado");
 					limparCampos();
 					//fechar a conexão
 				} catch (Exception e) {
@@ -473,7 +480,7 @@ public class Clientes extends JDialog {
 				// System.out.println("Teste do botão excluir");
 				// validação de exclusão - a variável confima captura a opção escolhida
 
-				int confirma = JOptionPane.showConfirmDialog(null, "Confirma a exclusão deste Clientes ?", "Atenção !",
+				int confirma = JOptionPane.showConfirmDialog(null, "Confirma a exclusão deste Cliente ?", "Atenção !",
 						JOptionPane.YES_NO_OPTION);
 				if (confirma == JOptionPane.YES_NO_OPTION) {
 					//CRUD - Delete
