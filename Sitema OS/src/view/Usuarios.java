@@ -27,6 +27,8 @@ import javax.swing.JList;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.border.BevelBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Usuarios extends JDialog {
 
@@ -72,6 +74,12 @@ public class Usuarios extends JDialog {
 		setTitle("Usuarios");
 		setBounds(100, 100, 350, 300);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				scrollPaneUsers.setVisible(false);
+			}
+		});
 		contentPanel.setForeground(new Color(255, 255, 255));
 		contentPanel.setBorder(null);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -271,6 +279,7 @@ public class Usuarios extends JDialog {
 		btnEditar.setEnabled(false);
 		btnExcluir.setEnabled(false);
 		btnPesquisar.setEnabled(true);
+		scrollPaneUsers.setVisible(false);
 	}// fim do método limpar campos()
 
 	/**
