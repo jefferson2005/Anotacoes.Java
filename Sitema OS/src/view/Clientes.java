@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.util.Iterator;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,6 +29,13 @@ import org.dom4j.io.SAXReader;
 
 import model.DAO;
 import utils.Validador;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Clientes extends JDialog {
 	private JTextField txtNome;
@@ -44,7 +52,6 @@ public class Clientes extends JDialog {
 		private JButton btnExcluir;
 		private JButton btnEditar;
 		private JButton btnAdicionar;
-		private JButton btnPesquisar;
 		private JTextField txtCep;
 		private JTextField txtEndereco;
 		private JTextField txtNumero;
@@ -52,6 +59,8 @@ public class Clientes extends JDialog {
 		private JTextField txtBairro;
 		private JTextField txtCidade;
 		private JComboBox cboUf;
+		private JScrollPane scrollPaneClientes;
+		private JList listClientes;
 		
 		
 	/**
@@ -75,11 +84,33 @@ public class Clientes extends JDialog {
 	 * Create the dialog.
 	 */
 	public Clientes() {
+		getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// clicar no painel JDialog
+				scrollPaneClientes.setVisible(false);
+				txtNome.setText(null);
+			}
+		});
 		getContentPane().setForeground(new Color(255, 255, 255));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Clientes.class.getResource("/img/Cadastro Clientes.png")));
 		setTitle("Cadastro Clientes");
 		setBounds(100, 100, 651, 400);
 		getContentPane().setLayout(null);
+		
+		scrollPaneClientes = new JScrollPane();
+		scrollPaneClientes.setVisible(false);
+		scrollPaneClientes.setBounds(74, 59, 151, 50);
+		getContentPane().add(scrollPaneClientes);
+		
+		listClientes = new JList();
+		listClientes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscarClientesLista();
+			}
+		});
+		scrollPaneClientes.setViewportView(listClientes);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Clientes.class.getResource("/img/urso medico.png")));
@@ -103,6 +134,12 @@ public class Clientes extends JDialog {
 		getContentPane().add(lblCpf);
 		
 		txtNome = new JTextField();
+		txtNome.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				listarClientes();
+			}
+		});
 		txtNome.setBounds(74, 41, 151, 20);
 		getContentPane().add(txtNome);
 		txtNome.setColumns(10);
@@ -125,22 +162,6 @@ public class Clientes extends JDialog {
 		getContentPane().add(txtCpf);
 		txtCpf.setColumns(10);
 		txtCpf.setDocument(new Validador (11));
-		
-		btnPesquisar = new JButton("");
-		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				buscar();
-			}
-		});
-		btnPesquisar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnPesquisar.setBorderPainted(false);
-		btnPesquisar.setDefaultCapable(false);
-		btnPesquisar.setContentAreaFilled(false);
-		btnPesquisar.setIcon(new ImageIcon(Clientes.class.getResource("/img/pesquisar.png")));
-		btnPesquisar.setBounds(235, 61, 48, 48);
-		getContentPane().add(btnPesquisar);
-		
-		getRootPane().setDefaultButton(btnPesquisar);
 		
 		JButton btnLimpar = new JButton("");
 		btnLimpar.addActionListener(new ActionListener() {
@@ -178,7 +199,6 @@ public class Clientes extends JDialog {
 		getContentPane().add(btnEditar);
 		
 		btnAdicionar = new JButton("");
-		btnAdicionar.setEnabled(false);
 		btnAdicionar.setToolTipText("Adicionar Cliente");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -281,16 +301,17 @@ public class Clientes extends JDialog {
 		btnBuscarCep.setBounds(423, 10, 48, 48);
 		getContentPane().add(btnBuscarCep);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
+		JLabel lblNewLabel_2 = 	new JLabel("");
 		lblNewLabel_2.setOpaque(true);
 		lblNewLabel_2.setBackground(new Color(255, 255, 255));
 		lblNewLabel_2.setBounds(0, 0, 312, 289);
 		getContentPane().add(lblNewLabel_2);
 		
-		cboUf = new JComboBox();
+		cboUf = 	new JComboBox();
 		cboUf.setModel(new DefaultComboBoxModel(new String[] {"", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"}));
 		cboUf.setBounds(516, 202, 70, 21);
 		getContentPane().add(cboUf);
+		getRootPane().setDefaultButton(btnBuscarCep);
 
 	}//Fim do construtor
 	
@@ -306,62 +327,12 @@ public class Clientes extends JDialog {
 		txtCidade.setText(null);
 		txtComplemento.setText(null);
 		txtNumero.setText(null);
-		btnAdicionar.setEnabled(false);
+		btnAdicionar.setEnabled(true);
 		btnEditar.setEnabled(false);
 		btnExcluir.setEnabled(false);
-		btnPesquisar.setEnabled(true);
-		
+		cboUf.setSelectedItem("");
+
 	}
-	
-	private void buscar() {
-		// Dica - testar o evento preimeiro
-		// System.out.println("teste do botão buscar");
-		// Criar Mua variável com a query (instruções do banco)
-		String read = "select * from clientes where cpf = ?";
-		// Tratamento de exceções
-		try {
-			// Abrir a conexão
-			con = dao.conectar();
-
-			// Preparar a exucução da query(instrução sql - CRUD Read)
-			// O paraêmtro 1 substitui a ? pelo conteúdo da caixa de texto
-			pst = con.prepareStatement(read);
-			pst.setString(1, txtCpf.getText());
-			// executar a query e buscar o resultado
-			rs = pst.executeQuery();
-			// uso da estrutura if else parar verificar se existe o contato
-			// rs.next() -> se existir um contato no banco
-			if (rs.next()) {
-				txtID.setText(rs.getString(1)); // 1 campo da tabela
-				txtNome.setText(rs.getString(2));
-				txtFone.setText(rs.getString(3)); // 3 campo (fone)
-				txtEmail.setText(rs.getString(4));// 4 campo (email)
-				txtCpf.setText(rs.getString(5));//5 campo (CPF)
-				txtCep.setText(rs.getString(6));
-				txtEndereco.setText(rs.getString(7));
-				txtNumero.setText(rs.getString(8));
-				txtComplemento.setText(rs.getString(9));
-				txtBairro.setText(rs.getString(10));
-				txtCidade.setText(rs.getString(11));
-				//validação (liberação dos botões alterar e excluir)		
-				btnEditar.setEnabled(true);
-				btnExcluir.setEnabled(true);
-				btnPesquisar.setEnabled(false);
-				
-			} else {
-
-				// se não existir um contato no banco
-				JOptionPane.showMessageDialog(null, "Cliente Inexistente");
-				//validação (liberação do botão adicionar)
-				btnAdicionar.setEnabled(true);
-				btnPesquisar.setEnabled(false);	
-				
-			}
-
-		} catch (Exception e) {
-			System.out.print(e);
-		}
-	}// Fim do método buscar
 
 	
 	private void editarContato() {
@@ -462,11 +433,11 @@ public class Clientes extends JDialog {
 					pst.setString(8, txtComplemento.getText());
 					pst.setString(9,txtBairro.getText());
 					pst.setString(10,txtCidade.getText());
-					pst.setLong(11, cboUf.getSelectedIndex());
+					pst.setString(11, cboUf.getSelectedItem());
 					//executar a query(instruição sql (CRUD - Creat))
 					pst.executeUpdate();
 					//Confirmar
-					JOptionPane.showMessageDialog(null, "Cliente adicionado");
+					JOptionPane.showMessageDialog(null, "Cliente adicionado");  
 					limparCampos();
 					//fechar a conexão
 				} catch (Exception e) {
@@ -551,6 +522,84 @@ public class Clientes extends JDialog {
 						System.out.println(e);
 				}
 			}
+			
+			private void listarClientes() {
+				// System.out.println("Teste");
+				// a linha abaixo cria um objeto usando como referência um vetor dinâmico, este
+				// obejto irá temporariamente armazenar os dados
+				DefaultListModel<String> modelo = new DefaultListModel<>();
+				// setar o model (vetor na lista)
+				listClientes.setModel(modelo);
+				// Query (instrução sql)
+				String readLista = "select* from clientes where nome like '" + txtNome.getText() + "%'" + "order by nome";
+				try {
+					// abri conexão
+					con = dao.conectar();
 
+					pst = con.prepareStatement(readLista);
+
+					rs = pst.executeQuery();
+
+					// uso do while para trazer os usuários enquanto exisitr
+					while (rs.next()) {
+						// mostrar a lista
+						scrollPaneClientes.setVisible(true);
+						// adicionar os usuarios no vetor -> lista
+						modelo.addElement(rs.getString(2));
+						// esconder a lista se nenhuma letra for digitada
+						if (txtNome.getText().isEmpty()) {
+							scrollPaneClientes.setVisible(false);
+						}
+					}
+					con.close();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+			}
+			
+			/**
+			 * Método usado para buscar usuário pela lista
+			 */
+			private void buscarClientesLista() {
+				// System.out.println("teste");
+				// variável que captura o indice da linha da lista
+				int linha = listClientes.getSelectedIndex();
+				if (linha >= 0) {
+					// Query (instrução sql)
+					// limit (0,1) -> seleciona o indice 0 e 1 usuário da lista
+					String readListaUsuario =  "select * from clientes where nome like '" + txtNome.getText() + "%'" + "order by nome";
+					try {
+						con = dao.conectar();
+						pst = con.prepareStatement(readListaUsuario);
+						rs = pst.executeQuery();
+						if (rs.next()) {
+							// esconder a lita
+							scrollPaneClientes.setVisible(false);
+							// setar campos
+							txtID.setText(rs.getString(1));
+							txtNome.setText(rs.getString(2));
+							txtFone.setText(rs.getString(3));
+							txtEmail.setText(rs.getString(4));
+							txtCpf.setText(rs.getString(5));
+							txtCep.setText(rs.getString(6));
+							txtBairro.setText(rs.getString(7));
+							txtNumero.setText(rs.getString(8));
+							txtEndereco.setText(rs.getString(9));
+							txtEndereco.setText(rs.getString(10));
+							txtCidade.setText(rs.getString(11));											
+							cboUf.setSelectedItem(rs.getString(12));
+							btnAdicionar.setEnabled(false);
+							btnEditar.setEnabled(true);
+							btnExcluir.setEnabled(true);	
+							
+						}
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+				} else {
+					// se não existir no banco um usuário da lista
+					scrollPaneClientes.setVisible(false);
+				}
+			}
 }//Fim do Codigo
 

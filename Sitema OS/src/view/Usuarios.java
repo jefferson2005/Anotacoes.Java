@@ -77,9 +77,9 @@ public class Usuarios extends JDialog {
 		contentPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//clicar no painel JDialog
+				// clicar no painel JDialog
 				scrollPaneUsers.setVisible(false);
-				txtNome.setText(null);
+				
 			}
 		});
 		contentPanel.setForeground(new Color(255, 255, 255));
@@ -89,9 +89,15 @@ public class Usuarios extends JDialog {
 		scrollPaneUsers.setVisible(false);
 		scrollPaneUsers.setBounds(66, 101, 177, 62);
 		contentPanel.add(scrollPaneUsers);
-		
-				listUsers = new JList();
-				scrollPaneUsers.setViewportView(listUsers);
+
+		listUsers = new JList();
+		listUsers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				buscarUsuarioLista();
+			}
+		});
+		scrollPaneUsers.setViewportView(listUsers);
 
 		JLabel lblNewLabel = new JLabel("ID:");
 		lblNewLabel.setBounds(10, 27, 46, 14);
@@ -120,8 +126,9 @@ public class Usuarios extends JDialog {
 		txtNome.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// pressionar uma tecla	
+				// pressionar uma tecla
 			}
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// soltar uma tecla
@@ -163,8 +170,7 @@ public class Usuarios extends JDialog {
 		});
 		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnLimpar.setBorder(null);
-		btnLimpar.setIcon(
-				new ImageIcon(Usuarios.class.getResource("/img/apagar (2).png")));
+		btnLimpar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/apagar (2).png")));
 		btnLimpar.setToolTipText("Apagar");
 		btnLimpar.setBounds(31, 202, 48, 48);
 		contentPanel.add(btnLimpar);
@@ -220,7 +226,7 @@ public class Usuarios extends JDialog {
 		btnExcluir.setToolTipText("Excluir");
 		btnExcluir.setBounds(102, 195, 55, 55);
 		contentPanel.add(btnExcluir);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("\r\n");
 		lblNewLabel_3.setBackground(new Color(255, 128, 255));
 		lblNewLabel_3.setOpaque(true);
@@ -409,7 +415,7 @@ public class Usuarios extends JDialog {
 		// a linha abaixo cria um objeto usando como referência um vetor dinâmico, este
 		// obejto irá temporariamente armazenar os dados
 		DefaultListModel<String> modelo = new DefaultListModel<>();
-		//setar o model (vetor na lista)
+		// setar o model (vetor na lista)
 		listUsers.setModel(modelo);
 		// Query (instrução sql)
 		String readLista = "select* from usuarios where nome like '" + txtNome.getText() + "%'" + "order by nome";
@@ -427,15 +433,48 @@ public class Usuarios extends JDialog {
 				scrollPaneUsers.setVisible(true);
 				// adicionar os usuarios no vetor -> lista
 				modelo.addElement(rs.getString(2));
-				//esconder a lista se nenhuma letra for digitada
-				if(txtNome.getText().isEmpty()) {
-				scrollPaneUsers.setVisible(false);
+				// esconder a lista se nenhuma letra for digitada
+				if (txtNome.getText().isEmpty()) {
+					scrollPaneUsers.setVisible(false);
 				}
 			}
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
 
+	/**
+	 * Método usado para buscar usuário pela lista
+	 */
+	private void buscarUsuarioLista() {
+		// System.out.println("teste");
+		// variável que captura o indice da linha da lista
+		int linha = listUsers.getSelectedIndex();
+		if (linha >= 0) {
+			// Query (instrução sql)
+			// limit (0,1) -> seleciona o indice 0 e 1 usuário da lista
+			String readListaUsuario =  "select * from usuarios where nome like '" + txtNome.getText() + "%'" + "order by nome";
+			try {
+				con = dao.conectar();
+				pst = con.prepareStatement(readListaUsuario);
+				rs = pst.executeQuery();
+				if (rs.next()) {
+					// esconder a lita
+					scrollPaneUsers.setVisible(false);
+					// setar campos
+					txtID.setText(rs.getString(1));
+					txtNome.setText(rs.getString(2));
+					txtLogin.setText(rs.getString(3));
+					txtSenha.setText(rs.getString(4));
+				}
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		} else {
+			// se não existir no banco um usuário da lista
+			scrollPaneUsers.setVisible(false);
+		}
 	}
 }
