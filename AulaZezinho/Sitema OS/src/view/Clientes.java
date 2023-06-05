@@ -3,10 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
-import java.awt.JobAttributes;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +23,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.dom4j.Document;
@@ -29,13 +34,6 @@ import org.dom4j.io.SAXReader;
 
 import model.DAO;
 import utils.Validador;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JList;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Clientes extends JDialog {
 	private JTextField txtNome;
@@ -89,7 +87,6 @@ public class Clientes extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				// clicar no painel JDialog
 				scrollPaneClientes.setVisible(false);
-				txtNome.setText(null);
 			}
 		});
 		getContentPane().setForeground(new Color(255, 255, 255));
@@ -134,6 +131,7 @@ public class Clientes extends JDialog {
 		getContentPane().add(lblCpf);
 		
 		txtNome = new JTextField();
+		txtNome.setDocument(new Validador(8));
 		txtNome.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -272,11 +270,13 @@ public class Clientes extends JDialog {
 		txtNumero.setBounds(512, 80, 74, 20);
 		getContentPane().add(txtNumero);
 		txtNumero.setColumns(10);
+		txtNumero.setDocument(new Validador(3));
 		
 		txtComplemento = new JTextField();
 		txtComplemento.setBounds(336, 144, 151, 20);
 		getContentPane().add(txtComplemento);
 		txtComplemento.setColumns(10);
+		txtComplemento.setDocument(new Validador(20));
 		
 		txtBairro = new JTextField();
 		txtBairro.setBounds(512, 144, 102, 20);
@@ -366,15 +366,15 @@ public class Clientes extends JDialog {
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtFone.getText());
 				pst.setString(3, txtEmail.getText());
-				pst.setString(4, txtCpf.getText());
-				pst.setString(5, txtID.getText());
-				pst.setString(6, txtCep.getText());
-				pst.setString(7, txtEndereco.getText());
-				pst.setString(8, txtNumero.getText());
-				pst.setString(9, txtComplemento.getText());
-				pst.setString(10,txtBairro.getText());
-				pst.setString(11,txtCidade.getText());
-				pst.setLong(12, cboUf.getSelectedIndex());
+				pst.setString(4, txtCpf.getText());	
+				pst.setString(5, txtCep.getText());
+				pst.setString(6, txtEndereco.getText());
+				pst.setString(7, txtNumero.getText());
+				pst.setString(8, txtComplemento.getText());
+				pst.setString(9,txtBairro.getText());
+				pst.setString(10,txtCidade.getText());
+				pst.setString(11, cboUf.getSelectedItem().toString());
+				pst.setString(12, txtID.getText());
 				// executar a query
 				pst.executeUpdate();
 				// confirmar para o usuário
@@ -433,15 +433,19 @@ public class Clientes extends JDialog {
 					pst.setString(8, txtComplemento.getText());
 					pst.setString(9,txtBairro.getText());
 					pst.setString(10,txtCidade.getText());
-					pst.setString(11, cboUf.getSelectedItem());
+					pst.setString(11, cboUf.getSelectedItem().toString());
 					//executar a query(instruição sql (CRUD - Creat))
 					pst.executeUpdate();
 					//Confirmar
 					JOptionPane.showMessageDialog(null, "Cliente adicionado");  
 					limparCampos();
 					//fechar a conexão
-				} catch (Exception e) {
-					System.out.println(e);
+				}  catch (java.sql.SQLIntegrityConstraintViolationException e1) {
+					JOptionPane.showMessageDialog(null, "Usuário não adicionado.\nEste CPF já está sendo utilizado.");
+					txtCpf.setText(null);
+					txtCpf.requestFocus();
+				} catch (Exception e2) {
+					System.out.println(e2);
 				}
 				}
 		}
@@ -582,12 +586,14 @@ public class Clientes extends JDialog {
 							txtEmail.setText(rs.getString(4));
 							txtCpf.setText(rs.getString(5));
 							txtCep.setText(rs.getString(6));
-							txtBairro.setText(rs.getString(7));
+							txtEndereco.setText(rs.getString(7));
 							txtNumero.setText(rs.getString(8));
-							txtEndereco.setText(rs.getString(9));
-							txtEndereco.setText(rs.getString(10));
+							txtComplemento.setText(rs.getString(9));
+							txtBairro.setText(rs.getString(10));
 							txtCidade.setText(rs.getString(11));											
 							cboUf.setSelectedItem(rs.getString(12));
+							
+							
 							btnAdicionar.setEnabled(false);
 							btnEditar.setEnabled(true);
 							btnExcluir.setEnabled(true);	

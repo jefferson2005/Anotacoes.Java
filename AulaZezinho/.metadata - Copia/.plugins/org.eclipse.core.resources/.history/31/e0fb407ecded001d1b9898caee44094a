@@ -1,0 +1,69 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+public class Login extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtLogin;
+	private JTextField txtsenha;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Login() {
+		setTitle("InfoX - Login");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 180);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblLogin = new JLabel("Login:");
+		lblLogin.setBounds(27, 22, 46, 14);
+		contentPane.add(lblLogin);
+		
+		txtLogin = new JTextField();
+		txtLogin.setBounds(110, 19, 223, 20);
+		contentPane.add(txtLogin);
+		txtLogin.setColumns(10);
+		
+		JLabel lblSenha = new JLabel("Senha:");
+		lblSenha.setBounds(27, 62, 46, 14);
+		contentPane.add(lblSenha);
+		
+		txtsenha = new JTextField();
+		txtsenha.setBounds(110, 59, 223, 20);
+		contentPane.add(txtsenha);
+		txtsenha.setColumns(10);
+		
+		JButton btnAcessar = new JButton("Acessar");
+		btnAcessar.setBounds(159, 109, 89, 23);
+		contentPane.add(btnAcessar);
+	}
+}

@@ -79,8 +79,7 @@ public class Usuarios extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				// clicar no painel JDialog
 				scrollPaneUsers.setVisible(false);
-				
-			}
+				}
 		});
 		contentPanel.setForeground(new Color(255, 255, 255));
 		contentPanel.setBorder(null);
@@ -460,7 +459,7 @@ public class Usuarios extends JDialog {
 				pst = con.prepareStatement(readListaUsuario);
 				rs = pst.executeQuery();
 				if (rs.next()) {
-					// esconder a lita
+					// esconder a lista
 					scrollPaneUsers.setVisible(false);
 					// setar campos
 					txtID.setText(rs.getString(1));
