@@ -39,6 +39,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Toolkit;
 
 public class Servicos extends JDialog {
 	
@@ -89,6 +90,7 @@ public class Servicos extends JDialog {
 	 * Create the dialog.
 	 */
 	public Servicos() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Servicos.class.getResource("/img/hospital2.png")));
 		getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -112,11 +114,11 @@ public class Servicos extends JDialog {
 		getContentPane().add(btnOS);
 		
 		JLabel lblOS = new JLabel("OS:");
-		lblOS.setBounds(24, 14, 46, 14);
+		lblOS.setBounds(24, 25, 46, 14);
 		getContentPane().add(lblOS);
 		
 		JLabel lblData = new JLabel("Data:");
-		lblData.setBounds(24, 57, 46, 14);
+		lblData.setBounds(24, 75, 46, 14);
 		getContentPane().add(lblData);
 		
 		JLabel lblBrinquedo = new JLabel("Brinquedo:");
@@ -144,7 +146,7 @@ public class Servicos extends JDialog {
 				}
 			}
 		});
-		txtOS.setBounds(55, 11, 86, 20);
+		txtOS.setBounds(55, 22, 86, 20);
 		getContentPane().add(txtOS);
 		txtOS.setColumns(10);
 		
@@ -161,7 +163,7 @@ public class Servicos extends JDialog {
 				}
 			}
 		});
-		txtData.setBounds(65, 54, 132, 20);
+		txtData.setBounds(65, 72, 132, 20);
 		getContentPane().add(txtData);
 		txtData.setColumns(10);
 		
@@ -219,7 +221,7 @@ public class Servicos extends JDialog {
 				buscar();
 			}
 		});
-		btnBuscar.setBounds(151, 0, 48, 48);
+		btnBuscar.setBounds(151, 11, 48, 48);
 		getContentPane().add(btnBuscar);
 		
 		btnLimpar =new JButton("");
@@ -533,6 +535,14 @@ public class Servicos extends JDialog {
 		// instanciar objeto para usar os métodos da biblioteca
 		Document document = new Document();
 		// documento pdf
+		if (txtID.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha o ID do Cliente");
+			txtID.requestFocus();
+		} else if (txtOS.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Selecione a OS");
+			txtOS.requestFocus();
+		}
+		else {
 		try {
 			// criar um documento em branco (pdf) de nome clientes.pdf
 			PdfWriter.getInstance(document, new FileOutputStream("os.pdf"));
@@ -562,6 +572,16 @@ public class Servicos extends JDialog {
 					Paragraph defeito = new Paragraph ("Defeito: " + rs.getString(4));
 					defeito.setAlignment(Element.ALIGN_LEFT);
 					document.add(defeito);
+					
+					Paragraph data = new Paragraph ("Data: " + rs.getString(2));
+					data.setAlignment(Element.ALIGN_LEFT);
+					document.add(data);
+					
+					Paragraph valor = new Paragraph ("Valor: " + rs.getString(6));
+					valor.setAlignment(Element.ALIGN_LEFT);
+					document.add(valor);
+				
+				
 				
 					//imprimir imagens
 					Image imagem = Image.getInstance(Servicos.class.getResource("/img/Hospital.png"));
@@ -587,5 +607,5 @@ public class Servicos extends JDialog {
 			System.out.println(e);
 		}
 	}
-
+	}
 }

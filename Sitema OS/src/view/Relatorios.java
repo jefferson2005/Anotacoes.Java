@@ -30,6 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Toolkit;
 
 public class Relatorios extends JDialog {
 	
@@ -58,6 +59,7 @@ public class Relatorios extends JDialog {
 	 * Create the dialog.
 	 */
 	public Relatorios() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Relatorios.class.getResource("/img/hospital2.png")));
 		setTitle("Relatórios");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -67,6 +69,7 @@ public class Relatorios extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JButton btnClientes = new JButton("");
+		btnClientes.setToolTipText("Relatório de Cliente");
 		btnClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnClientes.setIcon(new ImageIcon(Relatorios.class.getResource("/img/relatorioCli.png")));
 		btnClientes.addActionListener(new ActionListener() {
@@ -74,15 +77,11 @@ public class Relatorios extends JDialog {
 				relatorioClientes();
 			}
 		});
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Relatorios.class.getResource("/img/hospital2.png")));
-		lblNewLabel_1.setBounds(185, 202, 48, 48);
-		contentPanel.add(lblNewLabel_1);
 		btnClientes.setBounds(51, 40, 128, 128);
 		contentPanel.add(btnClientes);
 		
 		JButton btnServicos = new JButton("");
+		btnServicos.setToolTipText("Relatório de serviço");
 		btnServicos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnServicos.setIcon(new ImageIcon(Relatorios.class.getResource("/img/Relatorio11.png")));
 		btnServicos.addActionListener(new ActionListener() {
@@ -170,7 +169,7 @@ public class Relatorios extends JDialog {
 		//instanciar um objeto para construir a página pdf
 		Document document = new Document();
 		//configurar como A4 e modo paisagem
-		//document.setPageSize(PageSize.A4.rotate());
+		document.setPageSize(PageSize.A4.rotate());
 		//gerar o documento pdf
 		try {
 			//criar um documento em branco (pdf) de nome clientes.pdf

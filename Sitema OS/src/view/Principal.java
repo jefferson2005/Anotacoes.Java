@@ -145,9 +145,9 @@ public class Principal extends JFrame {
 			}
 		});
 		bntUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		bntUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/Usuarios.png")));
+		bntUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/usuarios (2).png")));
 		bntUsuarios.setToolTipText("Usuaríos");
-		bntUsuarios.setBounds(433, 59, 122, 130);
+		bntUsuarios.setBounds(431, 80, 64, 64);
 		contentPane.add(bntUsuarios);
 		
 		JButton bntSobre = new JButton("");
@@ -191,8 +191,8 @@ public class Principal extends JFrame {
 		});
 		btnClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnClientes.setToolTipText("Clientes");
-		btnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/Clientes.png")));
-		btnClientes.setBounds(49, 59, 122, 130);
+		btnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/User.png")));
+		btnClientes.setBounds(78, 80, 64, 64);
 		contentPane.add(btnClientes);
 		
 		JButton btnOrdemSRV = new JButton("");
@@ -203,9 +203,9 @@ public class Principal extends JFrame {
 			}
 		});
 		btnOrdemSRV.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnOrdemSRV.setIcon(new ImageIcon(Principal.class.getResource("/img/Ordem.png")));
+		btnOrdemSRV.setIcon(new ImageIcon(Principal.class.getResource("/img/OrdemSRV.png")));
 		btnOrdemSRV.setToolTipText("Ordem de Serviço");
-		btnOrdemSRV.setBounds(151, 200, 128, 128);
+		btnOrdemSRV.setBounds(147, 186, 64, 64);
 		contentPane.add(btnOrdemSRV);
 		
 		JButton btnRelatorio = new JButton("");
@@ -215,10 +215,18 @@ public class Principal extends JFrame {
 				relatorios.setVisible(true);	
 			}
 		});
-		btnRelatorio.setIcon(new ImageIcon(Principal.class.getResource("/img/Relatorio.png")));
+		btnRelatorio.setIcon(new ImageIcon(Principal.class.getResource("/img/Relatorio (2).png")));
 		btnRelatorio.setToolTipText("Relátorio");
-		btnRelatorio.setBounds(319, 200, 128, 128);
+		btnRelatorio.setBounds(365, 186, 64, 64);
 		contentPane.add(btnRelatorio);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(21, 240, 92, 101);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(503, 186, 98, 101);
+		contentPane.add(lblNewLabel_3);
 	}
 }
 
