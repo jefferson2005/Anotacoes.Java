@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Validador.java&apos; to &apos;Sitema OS/src/utils&apos;&#x0D;&#x0A;- Original project: &apos;Agenda de contatos&apos;&#x0D;&#x0A;- Destination element: &apos;Sitema OS/src/utils&apos;&#x0D;&#x0A;- Original element: &apos;utils.Validador.java&apos;" description="Copy compilation unit" destination="=Sitema OS/src&lt;utils" element1="/src&lt;utils{Validador.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1682366532762" units="1" version="1.0"/>
+</session>

@@ -1,0 +1,177 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import model.DAO;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+
+public class Usuarios extends JDialog {
+	DAO dao = new DAO();
+	private Connection con;
+	private PreparedStatement pst;
+	private ResultSet rs;	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel btnAdicionar;
+	private JTextField txtID;
+	private JTextField txtNome;
+	private JTextField txtFone;
+	private JTextField txtEmail;
+	private JLabel lblStatus;
+
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			Usuarios dialog = new Usuarios();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public Usuarios() {
+		setModal(true);
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		{
+			JLabel lblNewLabel = new JLabel("ID:");
+			lblNewLabel.setBounds(10, 25, 64, 14);
+			contentPanel.add(lblNewLabel);
+		}
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(61, 22, 125, 20);
+		contentPanel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Login:");
+		lblNewLabel_1.setBounds(10, 107, 46, 14);
+		contentPanel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Senha:");
+		lblNewLabel_2.setBounds(10, 146, 46, 14);
+		contentPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Nome:");
+		lblNewLabel_3.setBounds(10, 65, 46, 14);
+		contentPanel.add(lblNewLabel_3);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(61, 62, 125, 20);
+		contentPanel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(61, 104, 125, 20);
+		contentPanel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(61, 143, 125, 20);
+		contentPanel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setBorder(null);
+		btnNewButton.setIcon(new ImageIcon(Usuarios.class.getResource("/img/excluir.png")));
+		btnNewButton.setToolTipText("Limpar");
+		btnNewButton.setBounds(359, 168, 65, 65);
+		contentPanel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparcampos();
+			}
+			}
+		});
+		btnNewButton_1.setBorder(null);
+		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton_1.setIcon(new ImageIcon(Usuarios.class.getResource("/img/pesquisar.png")));
+		btnNewButton_1.setToolTipText("Pesquisar");
+		btnNewButton_1.setBounds(26, 185, 48, 48);
+		contentPanel.add(btnNewButton_1);
+	}
+	private void buscar() {
+		//Dica - testar o evento preimeiro
+		//System.out.println("teste do botão buscar");
+		// Criar ua variável com a query (instruções do banco)
+		String read = "select * from contatos where nome = ?";
+		//Tratamento de exceções 
+		try {
+			//Abrir a conexão 
+			con = dao.conectar();
+			
+			//Preparar a exucução da query(instrução sql - CRUD Read)
+			//O paraêmtro 1 substitui a ? pelo conteúdo da caixa de texto
+			pst = con.prepareStatement(read);
+			pst.setString(1, txtNome.getText());
+			//executar a query e buscar o resultado
+			rs = pst.executeQuery();
+			//uso da estrutura if else parar verificar se existe o contato
+			//rs.next() -> se existir um contato no banco
+			if (rs.next()) {
+				txtID.setText(rs.getString(1)); //1 campo da tabela 
+				txtFone.setText(rs.getString(3)); //3 campo (fone)
+				txtEmail.setText(rs.getString(4)); //4 campo (email)
+				
+				
+			} else {
+				
+				//se não existir um contato no banco 
+				JOptionPane.showMessageDialog(null, "Contato Inexistente");
+				
+			}
+			
+		}catch (Exception e) {
+			System.out.print(e);
+		}
+}
+
+	/**
+	 * Limpar campos 
+	 */
+	private void limparcampos() {
+		txtID.setText(null);
+		txtNome.setText(null);
+		txtFone.setText(null);
+		txtEmail.setText(null);
+			}//fim do método limpar campos()

@@ -1,0 +1,15 @@
+1º Passo) Definir a remuneração mensal
+7000,00
+
+2ª Passo) Somar 30% (Recursos (impostos, reserva de emergência etc))
+
+3º Passo) Somar 20% (Investimento)
+
+4ª Passo) Saber(definir) o custo operacional
+1000,00
+
+5ª Passo) Carga horária mensal 
+160
+
+hora de serviço: (7000,00 + 2100,000 + 1400,00 + 1000,00) / 160
+valor da hora: 72,00

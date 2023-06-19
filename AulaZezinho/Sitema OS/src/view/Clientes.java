@@ -384,8 +384,10 @@ public class Clientes extends JDialog {
 				// fechar conexão
 				con.close();
 
-			} catch (Exception e) {
-				System.out.println(e);
+			}  catch (java.sql.SQLIntegrityConstraintViolationException e1) {
+				JOptionPane.showMessageDialog(null, "Usuário não adicionado.\nEste Telefone/cpf já está sendo utilizado.");
+				} catch (Exception e2) {
+				System.out.println(e2);
 			}
 		}
 	}
@@ -449,9 +451,15 @@ public class Clientes extends JDialog {
 				}
 				}
 		}
+		
+		
 			// Método usado para excluir um contato
 
 			private void excluirClientes() {
+				
+				if(txtNome.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "SEM IDENTIFICAÇÃO -> Preencha Nome do Cliente ");
+				}
 				// System.out.println("Teste do botão excluir");
 				// validação de exclusão - a variável confima captura a opção escolhida
 
@@ -475,11 +483,12 @@ public class Clientes extends JDialog {
 						JOptionPane.showMessageDialog(null, " Cliente excluido");
 						//fechar a conexão 
 						con.close();
-					} catch (Exception e) {
-						System.out.println(e);
+					} catch (java.sql.SQLIntegrityConstraintViolationException e1) {
+						JOptionPane.showMessageDialog(null, "Cliente não excluido. \nEste cliente ainda tem um serviço pendente");
+					} catch (Exception e2) {
+						System.out.println(e2);
+					}
 }
-}
-
 	}// Fim do Método editar contato
 			
 			/**

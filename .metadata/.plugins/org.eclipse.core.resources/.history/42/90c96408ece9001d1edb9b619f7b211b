@@ -1,0 +1,288 @@
+package view;
+
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
+
+public class CalculadoraServico extends JFrame {
+
+	// variáveis
+	double remuneracao, custo, valor, hora, total;
+	int cargaHoraria, estimativa;
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtRemuneracao;
+	private JTextField txtCusto;
+	private JTextField txtCargaHoraria;
+	private JTextField txtEstimativa;
+	private JLabel lblValor;
+	private JLabel lblTotal;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CalculadoraServico frame = new CalculadoraServico();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CalculadoraServico() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CalculadoraServico.class.getResource("/img/5027823_calculator_coin_dollar_money_icon.png")));
+		setTitle("Calculadora de serviços de TI");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 360);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("Remuneração mensal pretendida");
+		lblNewLabel.setBounds(10, 11, 202, 14);
+		contentPane.add(lblNewLabel);
+
+		txtRemuneracao = new JTextField();
+		txtRemuneracao.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//digitação...
+				//definir caracteres permitidos
+				String caracteres = "0123456789.";
+				
+				//se for digitando algum caracteres não permitido
+				if (!caracteres.contains(e.getKeyChar() + "")){
+					
+					//ignorar
+					e.consume();
+				}
+			}
+		});
+		txtRemuneracao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparcampos();
+			}
+		});
+		txtRemuneracao.setBounds(245, 8, 133, 20);
+		contentPane.add(txtRemuneracao);
+		txtRemuneracao.setColumns(10);
+
+		JLabel lblNewLabel_1 = new JLabel("Custo operacional mensal");
+		lblNewLabel_1.setBounds(10, 39, 166, 14);
+		contentPane.add(lblNewLabel_1);
+
+		txtCusto = new JTextField();
+		txtCusto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//digitação...
+				//definir caracteres permitidos
+				String caracteres = "0123456789.";
+				
+				//se for digitando algum caracteres não permitido
+				if (!caracteres.contains(e.getKeyChar() + "")){
+					
+					//ignorar
+					e.consume();
+				}
+			}
+		});
+		txtCusto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparcampos();
+			}
+		});
+		txtCusto.setBounds(245, 36, 133, 20);
+		contentPane.add(txtCusto);
+		txtCusto.setColumns(10);
+
+		JLabel lblNewLabel_2 = new JLabel("Custo horário mensal de trabalho");
+		lblNewLabel_2.setBounds(10, 67, 202, 14);
+		contentPane.add(lblNewLabel_2);
+
+		txtCargaHoraria = new JTextField();
+		txtCargaHoraria.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				//digitação...
+				//definir caracteres permitidos
+				String caracteres = "0123456789.";
+				
+				//se for digitando algum caracteres não permitido
+				if (!caracteres.contains(e.getKeyChar() + "")){
+					
+					//ignorar
+					e.consume();
+				}
+			}
+		});
+		txtCargaHoraria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		txtCargaHoraria.setBounds(245, 64, 133, 20);
+		contentPane.add(txtCargaHoraria);
+		txtCargaHoraria.setColumns(10);
+
+		JButton btnCalcular = new JButton("");
+		btnCalcular.setContentAreaFilled(false);
+		btnCalcular.setToolTipText("Calcular");
+		btnCalcular.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/9054280_bx_calculator_icon.png")));
+		btnCalcular.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calcular();
+			}
+		});
+		btnCalcular.setBounds(231, 95, 48, 48);
+		contentPane.add(btnCalcular);
+
+		JButton btnLimpar = new JButton("");
+		btnLimpar.setToolTipText("Limpar");
+		btnLimpar.setContentAreaFilled(false);
+		btnLimpar.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/809419_delete_erase_miscellaneous_remove_trash_icon.png")));
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparcampos();
+			}
+		});
+		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnLimpar.setBounds(334, 95, 48, 48);
+		contentPane.add(btnLimpar);
+
+		JLabel lblNewLabel_3 = new JLabel("valor da hora:");
+		lblNewLabel_3.setBounds(10, 140, 74, 14);
+		contentPane.add(lblNewLabel_3);
+
+		JLabel lblNewLabel_4 = new JLabel("estimativa de horas do serviço");
+		lblNewLabel_4.setBounds(10, 189, 166, 14);
+		contentPane.add(lblNewLabel_4);
+
+		txtEstimativa = new JTextField();
+		txtEstimativa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		txtEstimativa.setBounds(179, 186, 108, 20);
+		contentPane.add(txtEstimativa);
+		txtEstimativa.setColumns(10);
+
+		lblValor = new JLabel("");
+		lblValor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblValor.setBounds(94, 126, 108, 26);
+		contentPane.add(lblValor);
+
+		JLabel lblNewLabel_5 = new JLabel("Total a ser cobrado do cliente:");
+		lblNewLabel_5.setBounds(10, 243, 160, 14);
+		contentPane.add(lblNewLabel_5);
+
+		lblTotal = new JLabel("");
+		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTotal.setBounds(182, 234, 114, 23);
+		contentPane.add(lblTotal);
+		
+		JButton btnResultado = new JButton("");
+		btnResultado.setContentAreaFilled(false);
+		btnResultado.setIcon(new ImageIcon(CalculadoraServico.class.getResource("/img/216188_equals_icon.png")));
+		btnResultado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 calcularTotal();
+			}
+		});
+		btnResultado.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnResultado.setBounds(312, 172, 48, 48);
+		contentPane.add(btnResultado);
+	}// fim do construtor
+
+	private void calcular() {
+		// teste do botão calcular
+		// System.out.println("teste");
+
+		if (txtRemuneracao.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preeencha a remuneração mensal pretendida");
+			txtRemuneracao.requestDefaultFocus();
+		} else if (txtCusto.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha a custo operasional mesal");
+			txtCusto.requestDefaultFocus();
+		} else if (txtCargaHoraria.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha a carga horária mensal de trabalho");
+			txtCargaHoraria.requestDefaultFocus();
+				
+			}else {
+			
+			// lógica principal
+		}
+
+		// entrada
+		remuneracao = Double.parseDouble(txtRemuneracao.getText());
+		custo = Double.parseDouble(txtCusto.getText());
+		cargaHoraria = Integer.parseInt(txtCargaHoraria.getText());
+
+		// processamento
+		valor = (remuneracao + (0.3 * remuneracao) + (0.2 * remuneracao) + custo) / cargaHoraria;
+
+		// saída
+		//formatação do resultado (número de casas decimais)
+		//("#0.00") 2 casas decimais 
+		DecimalFormat formatador = new DecimalFormat("#0.00");
+		lblValor.setText("R$" + valor);
+	}
+
+	private void limparcampos() {
+		txtRemuneracao.setText(null);
+		txtCusto.setText(null);
+		txtCargaHoraria.setText(null);		
+		txtEstimativa.setText(null);
+	}
+	/**
+	 * método responsavel pelo cálculo do valor total do serviço
+	 */
+	
+	private void calcularTotal() {
+		//validação de campos obrigatórios
+		if (txtEstimativa.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha a estimativa de horas");
+			txtEstimativa.requestDefaultFocus();
+		}else {
+		
+		//entrada
+		estimativa = Integer.parseInt(txtEstimativa.getText());
+		//processamento
+		total = estimativa * valor;
+		//saida
+		DecimalFormat formatador = new DecimalFormat("#0.00");
+		lblTotal.setText("R$" + formatador.format(total));
+	
+		}
+	}
+}// fim do código

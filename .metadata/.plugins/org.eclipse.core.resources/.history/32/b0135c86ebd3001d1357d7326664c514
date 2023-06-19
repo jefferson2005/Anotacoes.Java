@@ -1,0 +1,93 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Cursor;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
+
+public class Principal extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Principal frame = new Principal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Principal() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 640, 480);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(566, 10, 48, 48);
+		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/img/about.png")));
+		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblNewLabel.setToolTipText("Sobre");
+		contentPane.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent event) {
+			}
+			public void ancestorMoved(AncestorEvent event) {
+			}
+			public void ancestorRemoved(AncestorEvent event) {
+			}
+		});
+		lblNewLabel_1.setBounds(566, 382, 48, 48);
+		lblNewLabel_1.setIcon(new ImageIcon(Principal.class.getResource("/img/dboff.png")));
+		lblNewLabel_1.setToolTipText("DBon");
+		contentPane.add(lblNewLabel_1);
+		
+		JButton bntUsuarios = new JButton("");
+		bntUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//abrir a tela de Usuaríos
+				Usuarios usuarios = new Usuarios();
+				usuarios.setVisible(true);
+			}
+		});
+		bntUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		bntUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/users.png")));
+		bntUsuarios.setToolTipText("Usuaríos");
+		bntUsuarios.setBounds(235, 131, 128, 128);
+		contentPane.add(bntUsuarios);
+	}
+}

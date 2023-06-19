@@ -145,9 +145,9 @@ public class Principal extends JFrame {
 			}
 		});
 		bntUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		bntUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/309041_users_group_people_icon (1).png")));
+		bntUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/usuarios (2).png")));
 		bntUsuarios.setToolTipText("Usuaríos");
-		bntUsuarios.setBounds(433, 59, 122, 130);
+		bntUsuarios.setBounds(431, 80, 64, 64);
 		contentPane.add(bntUsuarios);
 		
 		JButton bntSobre = new JButton("");
@@ -167,7 +167,7 @@ public class Principal extends JFrame {
 		contentPane.add(bntSobre);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/img/8960622_hospital_sign_cross_health_pharmacy_icon.png")));
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/img/Hospital.png")));
 		lblNewLabel.setBounds(230, 11, 133, 122);
 		contentPane.add(lblNewLabel);
 		
@@ -191,8 +191,8 @@ public class Principal extends JFrame {
 		});
 		btnClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnClientes.setToolTipText("Clientes");
-		btnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/4850490_clients_communication_discussion_media_social_icon (1).png")));
-		btnClientes.setBounds(49, 59, 122, 130);
+		btnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/User.png")));
+		btnClientes.setBounds(78, 80, 64, 64);
 		contentPane.add(btnClientes);
 		
 		JButton btnOrdemSRV = new JButton("");
@@ -203,16 +203,30 @@ public class Principal extends JFrame {
 			}
 		});
 		btnOrdemSRV.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnOrdemSRV.setIcon(new ImageIcon(Principal.class.getResource("/img/3709732_call_performance_report_service_statistics_icon.png")));
+		btnOrdemSRV.setIcon(new ImageIcon(Principal.class.getResource("/img/OrdemSRV.png")));
 		btnOrdemSRV.setToolTipText("Ordem de Serviço");
-		btnOrdemSRV.setBounds(151, 200, 128, 128);
+		btnOrdemSRV.setBounds(147, 186, 64, 64);
 		contentPane.add(btnOrdemSRV);
 		
 		JButton btnRelatorio = new JButton("");
-		btnRelatorio.setIcon(new ImageIcon(Principal.class.getResource("/img/3709751_complaint_dissatisfaction_expression_feedback_report_icon (1).png")));
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Relatorios relatorios = new Relatorios();
+				relatorios.setVisible(true);	
+			}
+		});
+		btnRelatorio.setIcon(new ImageIcon(Principal.class.getResource("/img/Relatorio (2).png")));
 		btnRelatorio.setToolTipText("Relátorio");
-		btnRelatorio.setBounds(319, 200, 128, 128);
+		btnRelatorio.setBounds(365, 186, 64, 64);
 		contentPane.add(btnRelatorio);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(21, 240, 92, 101);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(503, 186, 98, 101);
+		contentPane.add(lblNewLabel_3);
 	}
 }
 

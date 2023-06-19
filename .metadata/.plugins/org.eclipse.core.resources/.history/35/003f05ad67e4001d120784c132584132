@@ -1,0 +1,147 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class CalculadoraServico extends JFrame {
+	
+	//variáveis
+	double remuneracao,custo,valor,hora;
+	int cargaHoraria;
+		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtRemuneracao;
+	private JTextField txtCusto;
+	private JTextField txtCargaHoraria;
+	private JTextField txtEstimativa;
+	private JLabel lblValor;
+	private JLabel lblTotal;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CalculadoraServico frame = new CalculadoraServico();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CalculadoraServico() {
+		setTitle("Calculadora de serviços de TI");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 360);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Remuneração mensal pretendida");
+		lblNewLabel.setBounds(10, 11, 202, 14);
+		contentPane.add(lblNewLabel);
+		
+		txtRemuneracao = new JTextField();
+		txtRemuneracao.setBounds(245, 8, 133, 20);
+		contentPane.add(txtRemuneracao);
+		txtRemuneracao.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Custo operacional mensal");
+		lblNewLabel_1.setBounds(10, 39, 166, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		txtCusto = new JTextField();
+		txtCusto.setBounds(245, 36, 133, 20);
+		contentPane.add(txtCusto);
+		txtCusto.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Custo horário mensal de trabalho");
+		lblNewLabel_2.setBounds(10, 67, 202, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		txtCargaHoraria = new JTextField();
+		txtCargaHoraria.setBounds(245, 64, 133, 20);
+		contentPane.add(txtCargaHoraria);
+		txtCargaHoraria.setColumns(10);
+		
+		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calcular();
+			}
+		});
+		btnCalcular.setBounds(8, 99, 89, 23);
+		contentPane.add(btnCalcular);
+		
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.setBounds(136, 99, 89, 23);
+		contentPane.add(btnLimpar);
+		
+		JLabel lblNewLabel_3 = new JLabel("valor da hora:");
+		lblNewLabel_3.setBounds(10, 140, 74, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("estimativa de horas do serviço");
+		lblNewLabel_4.setBounds(10, 189, 166, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		txtEstimativa = new JTextField();
+		txtEstimativa.setBounds(182, 186, 133, 20);
+		contentPane.add(txtEstimativa);
+		txtEstimativa.setColumns(10);
+		
+		lblValor = new JLabel("");
+		lblValor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblValor.setBounds(94, 126, 108, 26);
+		contentPane.add(lblValor);
+		
+		JLabel lblNewLabel_5 = new JLabel("Total a ser cobrado do cliente:");
+		lblNewLabel_5.setBounds(10, 243, 160, 14);
+		contentPane.add(lblNewLabel_5);
+		
+		lblTotal = new JLabel("");
+		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTotal.setBounds(182, 234, 114, 23);
+		contentPane.add(lblTotal);
+	}//fim do construtor
+	
+	private void calcular() {
+		//teste do botão calcular
+		//System.out.println("teste");
+		
+		//entrada
+		remuneracao = Double.parseDouble(txtRemuneracao.getText());
+		custo = Double.parseDouble(txtCusto.getText());
+		cargaHoraria = Integer.parseInt(txtCargaHoraria.getText());
+		
+		//processamento
+		valor = (remuneracao + (0.3 * remuneracao) + (0.2 * remuneracao) + custo) / cargaHoraria;
+		
+		//saída
+			lblValor.setText("R$" + valor); 
+	}
+	
+}//fim do código
+

@@ -1,0 +1,94 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+
+public class Usuarios extends JDialog {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			Usuarios dialog = new Usuarios();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public Usuarios() {
+		setModal(true);
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		{
+			JLabel lblNewLabel = new JLabel("ID:");
+			lblNewLabel.setBounds(10, 25, 64, 14);
+			contentPanel.add(lblNewLabel);
+		}
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(61, 22, 125, 20);
+		contentPanel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Login:");
+		lblNewLabel_1.setBounds(10, 107, 46, 14);
+		contentPanel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Senha:");
+		lblNewLabel_2.setBounds(10, 146, 46, 14);
+		contentPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Nome:");
+		lblNewLabel_3.setBounds(10, 65, 46, 14);
+		contentPanel.add(lblNewLabel_3);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(61, 62, 125, 20);
+		contentPanel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(61, 104, 125, 20);
+		contentPanel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(61, 143, 125, 20);
+		contentPanel.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(Usuarios.class.getResource("/img/excluir.png")));
+		btnNewButton.setToolTipText("Limpar");
+		btnNewButton.setBounds(309, 25, 48, 48);
+		contentPanel.add(btnNewButton);
+	}
+}
