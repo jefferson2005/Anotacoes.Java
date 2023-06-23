@@ -187,12 +187,24 @@ public class Fornecedor extends JDialog {
 		contentPanel.add(cboUF);
 		
 		txtID = new JTextField();
+		txtID.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres = "0123456789";
+
+				if (!caracteres.contains(e.getKeyChar() + "")) {
+
+					e.consume();
+				}
+			}
+		});
 		txtID.setEditable(false);
 		txtID.setBounds(27, 32, 52, 20);
 		contentPanel.add(txtID);
 		txtID.setColumns(10);
 		
 		txtFone = new JTextField();
+		txtFone.setDocument(new Validador(16));
 		txtFone.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -210,12 +222,14 @@ public class Fornecedor extends JDialog {
 		txtFone.setDocument(new Validador(15));
 		
 		txtEmail = new JTextField();
+		txtEmail.setDocument(new Validador(50));
 		txtEmail.setBounds(277, 157, 179, 20);
 		contentPanel.add(txtEmail);
 		txtEmail.setColumns(10);
 		txtEmail.setDocument(new Validador(30));
 		
 		txtCep = new JTextField();
+		txtCep.setDocument(new Validador(10));
 		txtCep.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -252,16 +266,9 @@ public class Fornecedor extends JDialog {
 		contentPanel.add(txtCidade);
 		
 		txtNumero = new JTextField();
+		txtNumero.setDocument(new Validador(5));
 		txtNumero.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				String caracteres = "0123456789.";
-
-				if (!caracteres.contains(e.getKeyChar() + "")) {
-
-					e.consume();
-				}
-			}
+			
 		});
 		txtNumero.setBounds(476, 304, 86, 20);
 		contentPanel.add(txtNumero);
@@ -279,6 +286,7 @@ public class Fornecedor extends JDialog {
 		getRootPane().setDefaultButton(btnBuscarCep);
 		
 		txtNome = new JTextField();
+		txtNome.setDocument(new Validador(50));
 		txtNome.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -291,6 +299,18 @@ public class Fornecedor extends JDialog {
 		txtNome.setDocument(new Validador(50));
 		
 		txtCNPJ = new JTextField();
+		txtCNPJ.setDocument(new Validador(20));
+		txtCNPJ.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres = "0123456789.-";
+
+				if (!caracteres.contains(e.getKeyChar() + "")) {
+
+					e.consume();
+				}
+			}
+		});
 		txtCNPJ.setBounds(408, 32, 111, 20);
 		contentPanel.add(txtCNPJ);
 		txtCNPJ.setColumns(10);
@@ -397,7 +417,7 @@ public class Fornecedor extends JDialog {
 		txtNome.setText(null);		
 		txtNumero.setText(null);	
 		txtEndereco.setText(null);		
-
+		cboUF.setSelectedItem("");
 
 	}
 	private void listarFornecedor() {

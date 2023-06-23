@@ -1,36 +1,45 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-
-import model.DAO;
-
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
+import java.awt.Image;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import model.DAO;
+import utils.Validador;
 
 public class Produtos extends JDialog {
 
@@ -38,6 +47,12 @@ public class Produtos extends JDialog {
 	private Connection con;
 	private PreparedStatement pst;
 	private ResultSet rs;
+	
+	//instanciar objeto para o fluxo de bytes
+	private FileInputStream fis;
+	
+	//variavel global para armazenar o tamanho da imagem(bytes)
+	private int tamanho;
 	
 	
 	private final JPanel contentPanel = new JPanel();
@@ -58,8 +73,9 @@ public class Produtos extends JDialog {
 	private JButton btnExcluir;
 	private JButton btnBuscar;
 	private JTextPane txtDescricao;
+	private JLabel lblFoto;
+	private JButton btnCarregar;
 	private JTextField txtBarcode;
-	private JTextField txtFoto;
 
 	/**
 	 * Launch the application.
@@ -92,6 +108,7 @@ public class Produtos extends JDialog {
 		panel.setLayout(null);
 		
 		txtFornecedor = new JTextField();
+		txtFornecedor.setDocument(new Validador(50));
 		txtFornecedor.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -125,6 +142,17 @@ public class Produtos extends JDialog {
 		panel.add(lblIDFornecedor);
 		
 		txtIDFornecedor = new JTextField();
+		txtIDFornecedor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres = "0123456789.";
+
+				if (!caracteres.contains(e.getKeyChar() + "")) {
+
+					e.consume();
+				}
+			}
+		});
 		txtIDFornecedor.setEditable(false);
 		txtIDFornecedor.setBounds(33, 38, 46, 20);
 		panel.add(txtIDFornecedor);
@@ -140,7 +168,7 @@ public class Produtos extends JDialog {
 			contentPanel.add(lblProduto);
 		}
 		{
-			JLabel lblBarcode = new JLabel("Barcode");
+			JLabel lblBarcode = new JLabel("Barcode:");
 			lblBarcode.setBounds(342, 11, 59, 14);
 			contentPanel.add(lblBarcode);
 		}
@@ -148,11 +176,6 @@ public class Produtos extends JDialog {
 			JLabel lblDescricao = new JLabel("Descrição:");
 			lblDescricao.setBounds(302, 212, 59, 14);
 			contentPanel.add(lblDescricao);
-		}
-		{
-			JLabel lblFoto = new JLabel("Foto:");
-			lblFoto.setBounds(342, 67, 46, 14);
-			contentPanel.add(lblFoto);
 		}
 		{
 			JLabel lblEstoque = new JLabel("Estoque:");
@@ -181,31 +204,69 @@ public class Produtos extends JDialog {
 		}
 		{
 			txtID = new JTextField();
+			txtID.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					String caracteres = "0123456789.";
+
+					if (!caracteres.contains(e.getKeyChar() + "")) {
+
+						e.consume();
+					}
+				}
+			});
 			txtID.setEditable(false);
 			txtID.setBounds(66, 8, 86, 20);
 			contentPanel.add(txtID);
 			txtID.setColumns(10);
+			
 		}
 		{
 			txtProdutos = new JTextField();
 			txtProdutos.setBounds(66, 34, 86, 20);
 			contentPanel.add(txtProdutos);
 			txtProdutos.setColumns(10);
+			txtProdutos.setDocument(new Validador(50));
 		}
 		{
 			txtEstoque = new JTextField();
+			txtEstoque.setDocument(new Validador(5));
+			txtEstoque.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					String caracteres = "0123456789.";
+
+					if (!caracteres.contains(e.getKeyChar() + "")) {
+
+						e.consume();
+					}
+				}
+			});
 			txtEstoque.setColumns(10);
 			txtEstoque.setBounds(106, 134, 86, 20);
 			contentPanel.add(txtEstoque);
 		}
 		{
 			txtEstoqueMin = new JTextField();
+			txtEstoqueMin.setDocument(new Validador(7));
 			txtEstoqueMin.setColumns(10);
 			txtEstoqueMin.setBounds(106, 159, 86, 20);
 			contentPanel.add(txtEstoqueMin);
 		}
 		{
 			txtValor = new JTextField();
+			txtValor.setDocument(new Validador(7));
+			txtValor.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					String caracteres = "0123456789.";
+
+					if (!caracteres.contains(e.getKeyChar() + "")) {
+
+						e.consume();
+					}
+				}
+			});
 			txtValor.setColumns(10);
 			txtValor.setBounds(66, 184, 86, 20);
 			contentPanel.add(txtValor);
@@ -215,6 +276,7 @@ public class Produtos extends JDialog {
 			txtLocal.setColumns(10);
 			txtLocal.setBounds(66, 234, 86, 20);
 			contentPanel.add(txtLocal);
+			txtLocal.setDocument(new Validador(20));
 		}
 		{
 			btnExcluir = new JButton("Excluir");
@@ -258,6 +320,7 @@ public class Produtos extends JDialog {
 		}
 		
 		txtDescricao = new JTextPane();
+		txtDescricao.setDocument(new Validador(200));
 		txtDescricao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtDescricao.setBounds(306, 237, 269, 101);
 		contentPanel.add(txtDescricao);
@@ -277,18 +340,27 @@ public class Produtos extends JDialog {
 		contentPanel.add(cboUN);
 		
 		getRootPane().setDefaultButton(btnBuscar);
-		{
-			txtBarcode = new JTextField();
-			txtBarcode.setBounds(397, 8, 86, 20);
-			contentPanel.add(txtBarcode);
-			txtBarcode.setColumns(10);
-		}
-		{
-			txtFoto = new JTextField();
-			txtFoto.setBounds(385, 64, 86, 20);
-			contentPanel.add(txtFoto);
-			txtFoto.setColumns(10);
-		}
+		
+		lblFoto = new JLabel("");
+		lblFoto.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		lblFoto.setForeground(SystemColor.textHighlight);
+		lblFoto.setIcon(new ImageIcon(Produtos.class.getResource("/img/Camera.png")));
+		lblFoto.setBounds(388, 54, 128, 128);
+		contentPanel.add(lblFoto);
+		
+		btnCarregar = new JButton("Carregar Foto");
+		btnCarregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 carregarFoto();
+			}
+		});
+		btnCarregar.setBounds(397, 183, 107, 23);
+		contentPanel.add(btnCarregar);
+		
+		txtBarcode = new JTextField();
+		txtBarcode.setBounds(405, 8, 86, 20);
+		contentPanel.add(txtBarcode);
+		txtBarcode.setColumns(10);
 		
 		
 	}//final construtor
@@ -385,7 +457,7 @@ public class Produtos extends JDialog {
 				txtProdutos.setText(rs.getString(2));
 				txtValor.setText(rs.getString(3)); 
 				txtDescricao.setText(rs.getString(4));
-				txtEstoque.setText(rs.getString(5));
+				Blob blob = (Blob) rs.getBlob(5);
 				txtEstoque.setText(rs.getString(6));
 				txtEstoqueMin.setText(rs.getString(7));
 				txtValor.setText(rs.getString(8));
@@ -393,15 +465,24 @@ public class Produtos extends JDialog {
 				txtLocal.setText(rs.getString(10));
 				txtIDFornecedor.setText(rs.getString(11));
 				
-				btnEditar.setEnabled(true);
-				btnExcluir.setEnabled(true);
+			
+				byte[] img = blob.getBytes(1, (int) blob.length());
+				BufferedImage imagem = null;
+				
+			try {
+				imagem = ImageIO.read(new ByteArrayInputStream(img));
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			ImageIcon icone = new ImageIcon(imagem);
+			Icon foto = new ImageIcon(icone.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH));
+				lblFoto.setIcon(foto);
 			} else {
 				// se não existir um contato no banco
 				JOptionPane.showMessageDialog(null, "Produto inexistente");
 				btnAdicionar.setEnabled(true);
-				
 			}
-
+			con.close();
 		} catch (Exception e) {
 			System.out.print(e);
 		}
@@ -420,6 +501,8 @@ public class Produtos extends JDialog {
 		txtEstoqueMin.setText(null);
 		txtEstoque.setText(null);
 		txtFornecedor.setText(null);
+		lblFoto.setIcon(new ImageIcon(Produtos.class.getResource("/img/camera.png")));
+		cboUN.setSelectedItem("");
 	}
 	private void adicionar() {
 		// System.out.println("teste");
@@ -444,13 +527,14 @@ public class Produtos extends JDialog {
 				pst.setString(1, txtProdutos.getText());
 				pst.setString(2, txtBarcode.getText());
 				pst.setString(3, txtDescricao.getText());
-				pst.setString(4, txtFoto.getText());
+				pst.setBlob(4, fis, tamanho);
 				pst.setString(5, txtEstoque.getText());
 				pst.setString(6, txtEstoqueMin.getText());
 				pst.setString(7, txtValor.getText());
 				pst.setString(8, cboUN.getSelectedItem().toString());
 				pst.setString(9, txtLocal.getText());
 				pst.setString(10, txtIDFornecedor.getText());
+				
 				
 				//executar a query(instruição sql (CRUD - Creat))
 				pst.executeUpdate();
@@ -537,6 +621,7 @@ public class Produtos extends JDialog {
 				pst.setString(5, txtValor.getText());
 				pst.setString(6, cboUN.getSelectedItem().toString());
 				pst.setString(7, txtLocal.getText());
+				
 				// executar a query
 				pst.executeUpdate();
 				// confirmar para o usuário
@@ -551,4 +636,32 @@ public class Produtos extends JDialog {
 			}
 		}
 	}
+
+private void carregarFoto() {
+	JFileChooser jfc = new JFileChooser();
+	jfc.setDialogTitle("Selecionar Arquivo");
+	jfc.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens(*.PNG, *JPG, *JPEG)", "png","jpg", "jpeg"));
+	int resultado = jfc.showOpenDialog(this);
+	if(resultado == JFileChooser.APPROVE_OPTION) {
+	try{
+		fis = new FileInputStream(jfc.getSelectedFile());
+		tamanho = (int) jfc.getSelectedFile().length();
+		Image foto = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH);
+		lblFoto.setIcon(new ImageIcon(foto));
+		lblFoto.updateUI();
+	} catch (Exception e) {
+		System.out.println(e);
+	}
+    }	
 }
+}
+
+
+
+
+
+
+
+
+
+
