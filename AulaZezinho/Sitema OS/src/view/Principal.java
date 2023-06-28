@@ -43,6 +43,7 @@ public class Principal extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblStatus;
 	private JLabel lblData;
+	private JButton btnProdutos;
 	
 
 	/**
@@ -137,6 +138,7 @@ public class Principal extends JFrame {
 		contentPane.add(lblStatus);
 		
 		JButton bntUsuarios = new JButton("");
+		bntUsuarios.setContentAreaFilled(false);
 		bntUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//abrir a tela de Usuaríos
@@ -146,8 +148,8 @@ public class Principal extends JFrame {
 		});
 		bntUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bntUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/usuarios (2).png")));
-		bntUsuarios.setToolTipText("Usuaríos");
-		bntUsuarios.setBounds(431, 80, 64, 64);
+		bntUsuarios.setToolTipText("Usuários");
+		bntUsuarios.setBounds(447, 80, 64, 64);
 		contentPane.add(bntUsuarios);
 		
 		JButton bntSobre = new JButton("");
@@ -183,6 +185,7 @@ public class Principal extends JFrame {
 		contentPane.add(lblNomeEmpresa);
 		
 		JButton btnClientes = new JButton("");
+		btnClientes.setContentAreaFilled(false);
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clientes clientes = new Clientes();
@@ -196,6 +199,7 @@ public class Principal extends JFrame {
 		contentPane.add(btnClientes);
 		
 		JButton btnOrdemSRV = new JButton("");
+		btnOrdemSRV.setContentAreaFilled(false);
 		btnOrdemSRV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Servicos servico = new Servicos();
@@ -205,10 +209,12 @@ public class Principal extends JFrame {
 		btnOrdemSRV.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnOrdemSRV.setIcon(new ImageIcon(Principal.class.getResource("/img/OrdemSRV.png")));
 		btnOrdemSRV.setToolTipText("Ordem de Serviço");
-		btnOrdemSRV.setBounds(147, 186, 64, 64);
+		btnOrdemSRV.setBounds(159, 186, 64, 64);
 		contentPane.add(btnOrdemSRV);
 		
 		JButton btnRelatorio = new JButton("");
+		btnRelatorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRelatorio.setContentAreaFilled(false);
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Relatorios relatorios = new Relatorios();
@@ -217,16 +223,34 @@ public class Principal extends JFrame {
 		});
 		btnRelatorio.setIcon(new ImageIcon(Principal.class.getResource("/img/Relatorio (2).png")));
 		btnRelatorio.setToolTipText("Relátorio");
-		btnRelatorio.setBounds(365, 186, 64, 64);
+		btnRelatorio.setBounds(364, 186, 64, 64);
 		contentPane.add(btnRelatorio);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(21, 240, 92, 101);
-		contentPane.add(lblNewLabel_2);
+		btnProdutos = new JButton("");
+		btnProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Produtos produtos = new Produtos();
+				produtos.setVisible(true);
+			}
+		});
+		btnProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnProdutos.setIcon(new ImageIcon(Principal.class.getResource("/img/Produtos.png")));
+		btnProdutos.setContentAreaFilled(false);
+		btnProdutos.setBounds(78, 285, 64, 64);
+		contentPane.add(btnProdutos);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(503, 186, 98, 101);
-		contentPane.add(lblNewLabel_3);
+		JButton btnFornecedor = new JButton("");
+		btnFornecedor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnFornecedor.setIcon(new ImageIcon(Principal.class.getResource("/img/Fornecedor.png")));
+		btnFornecedor.setContentAreaFilled(false);
+		btnFornecedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Fornecedor fornecedor = new Fornecedor();
+				fornecedor.setVisible(true);
+			}
+		});
+		btnFornecedor.setBounds(447, 285, 64, 64);
+		contentPane.add(btnFornecedor);
 	}
 }
 
