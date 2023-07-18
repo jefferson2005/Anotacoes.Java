@@ -44,6 +44,11 @@ public class Principal extends JFrame {
 	private JLabel lblStatus;
 	private JLabel lblData;
 	private JButton btnProdutos;
+	//essa label será alterada pela tela de login
+	public JLabel lblUsuario;
+	public JButton btnRelatorio;
+	public JButton bntUsuarios;
+	public JLabel lblRodape;
 	
 
 	/**
@@ -128,16 +133,25 @@ public class Principal extends JFrame {
 			}
 		});
 		
+		JLabel lblNewLabel_2 = new JLabel("Usuário:");
+		lblNewLabel_2.setBounds(6, 382, 86, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		lblUsuario = new JLabel("");
+		lblUsuario.setBounds(60, 382, 224, 14);
+		contentPane.add(lblUsuario);
+		
 		lblData = new JLabel("New label");
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblData.setBounds(10, 393, 437, 26);
+		lblData.setBounds(6, 407, 437, 26);
 		contentPane.add(lblData);
 		lblStatus.setBounds(550, 360, 74, 91);
 		lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/2124505_app_data_essential_ui_icon.png")));
 		lblStatus.setToolTipText("DBon");
 		contentPane.add(lblStatus);
 		
-		JButton bntUsuarios = new JButton("");
+		bntUsuarios = new JButton("");
+		bntUsuarios.setEnabled(false);
 		bntUsuarios.setContentAreaFilled(false);
 		bntUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -173,11 +187,11 @@ public class Principal extends JFrame {
 		lblNewLabel.setBounds(230, 11, 133, 122);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setOpaque(true);
-		lblNewLabel_1.setBackground(new Color(255, 91, 91));
-		lblNewLabel_1.setBounds(0, 360, 624, 81);
-		contentPane.add(lblNewLabel_1);
+		lblRodape = new JLabel("");
+		lblRodape.setOpaque(true);
+		lblRodape.setBackground(new Color(255, 91, 91));
+		lblRodape.setBounds(0, 360, 624, 81);
+		contentPane.add(lblRodape);
 		
 		JLabel lblNomeEmpresa = new JLabel("Toys Help");
 		lblNomeEmpresa.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 18));
@@ -212,7 +226,8 @@ public class Principal extends JFrame {
 		btnOrdemSRV.setBounds(159, 186, 64, 64);
 		contentPane.add(btnOrdemSRV);
 		
-		JButton btnRelatorio = new JButton("");
+		btnRelatorio = new JButton("");
+		btnRelatorio.setEnabled(false);
 		btnRelatorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRelatorio.setContentAreaFilled(false);
 		btnRelatorio.addActionListener(new ActionListener() {

@@ -59,7 +59,7 @@ public class Login extends JFrame {
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -140,9 +140,9 @@ public class Login extends JFrame {
 
 	private void logar() {
 
-		//Criar uma variável para capturar a senha
-		String capturaSenha = new String(txtSenha.getPassword()); 
-		
+		// Criar uma variável para capturar a senha
+		String capturaSenha = new String(txtSenha.getPassword());
+
 		// validação
 
 		if (txtLogins.getText().isEmpty()) {
@@ -154,7 +154,7 @@ public class Login extends JFrame {
 		} else {
 
 			// Lógica pricipal
-			String read = "select * from usuarios where login=? and Senha=md5(?)";
+			String read = "select * from usuarios where login=? and senha=md5(?)";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(read);
@@ -162,12 +162,31 @@ public class Login extends JFrame {
 				pst.setString(2, capturaSenha);
 				rs = pst.executeQuery();
 				if (rs.next()) {
-					// logar -> acessar a tela principal
-					principal.setVisible(true);
-					//fechar a tela de login(está tela)
-					this.dispose();
-										
-				}else {
+					// capturar o perfil do usuario
+					// System.out.println(rs.getString(5));//apoio a lógica
+					// Tratamento do perfil do usuário
+					String perfil = rs.getString(5);
+					if (perfil.equals("admin")) {
+						// logar -> acessar a tela principal
+						principal.setVisible(true);
+						// setar a tabela da tela principal com o nome do usuario
+						principal.lblUsuario.setText(rs.getString(2));
+						// habilitar os botões
+						principal.btnRelatorio.setEnabled(true);
+						principal.bntUsuarios.setEnabled(true);
+						// mudar a cor do rodapé
+						principal.lblRodape.setBackground(Color.RED);
+						// fechar a tela de login(está tela)
+						this.dispose();
+					} else {// perfil for diferente de admin
+							// logar -> acessar a tela principal
+						principal.setVisible(true);
+						// setar a label da tela principal com o nome do usuario
+						principal.lblUsuario.setText(rs.getString(2));
+						// fechar a tela de login(estela tela)
+						this.dispose();
+					}
+				} else {
 					JOptionPane.showMessageDialog(null, "Usuário e/ou senha invalido(s)");
 				}
 				con.close();
@@ -176,21 +195,22 @@ public class Login extends JFrame {
 			}
 		}
 	}
+
 	private void status() {
 		try {
-			//abrir a conexão 
+			// abrir a conexão
 			con = dao.conectar();
 			if (con == null) {
-				//System.out.println("Erro de conexão");
+				// System.out.println("Erro de conexão");
 				lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9069340_database_fail_icon.png")));
 			} else {
-				//System.out.println("Banco conectado");
+				// System.out.println("Banco conectado");
 				lblStatus.setIcon(new ImageIcon(Usuarios.class.getResource("/img/9069499_database_success_icon.png")));
 			}
-			// NUNCA esquecer de fechar a conexão 
+			// NUNCA esquecer de fechar a conexão
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}//Fim do método status()
+	}// Fim do método status()
 }// Fim do código

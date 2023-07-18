@@ -170,7 +170,7 @@ public class Clientes extends JDialog {
 		btnLimpar.setToolTipText("Limpar");
 		btnLimpar.setIcon(new ImageIcon(Clientes.class.getResource("/img/clear icon.png")));
 		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLimpar.setBounds(102, 300, 48, 48);
+		btnLimpar.setBounds(498, 300, 48, 48);
 		getContentPane().add(btnLimpar);
 		
 		JLabel lblID = new JLabel("ID:");
@@ -205,7 +205,7 @@ public class Clientes extends JDialog {
 		});
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setIcon(new ImageIcon(Clientes.class.getResource("/img/ADD.png")));
-		btnAdicionar.setBounds(503, 300, 48, 48);
+		btnAdicionar.setBounds(95, 300, 48, 48);
 		getContentPane().add(btnAdicionar);
 		
 		btnExcluir = new JButton("");

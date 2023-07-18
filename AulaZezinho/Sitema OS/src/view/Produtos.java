@@ -43,6 +43,7 @@ import utils.Validador;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
+import java.awt.Cursor;
 
 public class Produtos extends JDialog {
 	DAO dao = new DAO();
@@ -305,6 +306,7 @@ public class Produtos extends JDialog {
 		}
 		{
 			btnExcluir = new JButton("");
+			btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnExcluir.setEnabled(false);
 			btnExcluir.setToolTipText("Excluir");
 			btnExcluir.setIcon(new ImageIcon(Produtos.class.getResource("/img/Apagar.png")));
@@ -313,11 +315,12 @@ public class Produtos extends JDialog {
 					excluirProduto();
 				}
 			});
-			btnExcluir.setBounds(456, 301, 48, 48);
+			btnExcluir.setBounds(199, 301, 48, 48);
 			contentPanel.add(btnExcluir);
 		}
 		{
 			btnLimpar = new JButton("");
+			btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnLimpar.setIcon(new ImageIcon(Produtos.class.getResource("/img/clear icon.png")));
 			btnLimpar.setToolTipText("Limpar");
 			btnLimpar.addActionListener(new ActionListener() {
@@ -325,11 +328,12 @@ public class Produtos extends JDialog {
 					limparCampos();
 				}
 			});
-			btnLimpar.setBounds(73, 301, 48, 48);
+			btnLimpar.setBounds(454, 301, 48, 48);
 			contentPanel.add(btnLimpar);
 		}
 		{
 			btnAdicionar = new JButton("");
+			btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnAdicionar.setToolTipText("Adicionar");
 			btnAdicionar.setIcon(new ImageIcon(Produtos.class.getResource("/img/ADD.png")));
 			btnAdicionar.addActionListener(new ActionListener() {
@@ -337,11 +341,12 @@ public class Produtos extends JDialog {
 					adicionar();
 				}
 			});
-			btnAdicionar.setBounds(199, 301, 48, 48);
+			btnAdicionar.setBounds(82, 301, 48, 48);
 			contentPanel.add(btnAdicionar);
 		}
 		{
 			btnEditar = new JButton("");
+			btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			btnEditar.setEnabled(false);
 			btnEditar.setToolTipText("Editar");
 			btnEditar.setIcon(new ImageIcon(Produtos.class.getResource("/img/Editor.png")));
@@ -350,7 +355,7 @@ public class Produtos extends JDialog {
 					editarProduto();
 				}
 			});
-			btnEditar.setBounds(328, 301, 48, 48);
+			btnEditar.setBounds(339, 301, 48, 48);
 			contentPanel.add(btnEditar);
 		}
 
@@ -481,9 +486,9 @@ public class Produtos extends JDialog {
 	private void adicionar() {
 		// System.out.println("teste");
 		// Validação de campos obrigatóriios
-		if (txtValor.getText().isEmpty()) {
+		if (txtProdutos.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o valor do produto");
-			txtValor.requestFocus();
+			txtProdutos.requestFocus();
 		} else if (txtDescricao.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha a descrição do produto");
 			txtDescricao.requestFocus();
@@ -493,15 +498,14 @@ public class Produtos extends JDialog {
 		} else if (txtEstoqueMin.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o estoque minimo atual");
 			txtEstoqueMin.requestFocus();
-		} else if (txtProdutos.getText().isEmpty()) {
+		} else if (txtValor.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o nome do produto");
-			txtProdutos.requestFocus();
-		} else if (lblFoto.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Preencha a foto do produto");
-			lblFoto.requestFocus();
+			txtValor.requestFocus();
 		} else if (txtFornecedor.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o fornecedor do produto");
 			txtFornecedor.requestFocus();
+			
+				
 		} else {
 
 			// lógica pricipal

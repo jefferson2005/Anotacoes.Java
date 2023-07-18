@@ -29,6 +29,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Usuarios extends JDialog {
 
@@ -52,6 +54,7 @@ public class Usuarios extends JDialog {
 	private JButton btnPesquisar;
 	private JList listUsers;
 	private final JScrollPane scrollPaneUsers = new JScrollPane();
+	private JComboBox cboPerfil;
 
 	/**
 	 * Launch the application.
@@ -72,7 +75,7 @@ public class Usuarios extends JDialog {
 	public Usuarios() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/img/users.png")));
 		setTitle("Usuarios");
-		setBounds(100, 100, 350, 300);
+		setBounds(100, 100, 405, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -169,7 +172,7 @@ public class Usuarios extends JDialog {
 		});
 		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnLimpar.setBorder(null);
-		btnLimpar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/apagar (2).png")));
+		btnLimpar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/clear icon.png")));
 		btnLimpar.setToolTipText("Apagar");
 		btnLimpar.setBounds(31, 202, 48, 48);
 		contentPanel.add(btnLimpar);
@@ -192,8 +195,8 @@ public class Usuarios extends JDialog {
 		});
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setBorder(null);
-		btnAdicionar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/adicionar.png")));
-		btnAdicionar.setBounds(176, 195, 55, 55);
+		btnAdicionar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/ADD.png")));
+		btnAdicionar.setBounds(209, 195, 55, 55);
 		contentPanel.add(btnAdicionar);
 
 		btnEditar = new JButton("");
@@ -206,9 +209,9 @@ public class Usuarios extends JDialog {
 				editarContato();
 			}
 		});
-		btnEditar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/editar.png")));
+		btnEditar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/Editor.png")));
 		btnEditar.setToolTipText("Editar");
-		btnEditar.setBounds(252, 195, 55, 55);
+		btnEditar.setBounds(293, 195, 55, 55);
 		contentPanel.add(btnEditar);
 
 		btnExcluir = new JButton("");
@@ -221,16 +224,25 @@ public class Usuarios extends JDialog {
 		});
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setBorderPainted(false);
-		btnExcluir.setIcon(new ImageIcon(Usuarios.class.getResource("/img/excluir.png")));
+		btnExcluir.setIcon(new ImageIcon(Usuarios.class.getResource("/img/Excluir Contato.png")));
 		btnExcluir.setToolTipText("Excluir");
-		btnExcluir.setBounds(102, 195, 55, 55);
+		btnExcluir.setBounds(114, 195, 55, 55);
 		contentPanel.add(btnExcluir);
 
 		JLabel lblNewLabel_3 = new JLabel("\r\n");
 		lblNewLabel_3.setBackground(new Color(255, 128, 255));
 		lblNewLabel_3.setOpaque(true);
-		lblNewLabel_3.setBounds(0, 186, 344, 75);
+		lblNewLabel_3.setBounds(0, 186, 389, 75);
 		contentPanel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Perfil:");
+		lblNewLabel_4.setBounds(253, 128, 46, 14);
+		contentPanel.add(lblNewLabel_4);
+		
+		cboPerfil = new JComboBox();
+		cboPerfil.setModel(new DefaultComboBoxModel(new String[] {"", "admin", "user"}));
+		cboPerfil.setBounds(298, 121, 70, 29);
+		contentPanel.add(cboPerfil);
 	}
 
 	private void buscar() {
@@ -256,6 +268,7 @@ public class Usuarios extends JDialog {
 				txtNome.setText(rs.getString(2)); // 2campo (nome)
 				txtLogin.setText(rs.getString(3));// 3 campo (Login)
 				txtSenha.setText(rs.getString(4)); // 4 campo (Senha)
+				cboPerfil.setSelectedItem(rs.getString(5));
 				// validação (liberação dos botões alterar e excluir)
 				btnEditar.setEnabled(true);
 				btnExcluir.setEnabled(true);
@@ -287,6 +300,7 @@ public class Usuarios extends JDialog {
 		btnExcluir.setEnabled(false);
 		btnPesquisar.setEnabled(true);
 		scrollPaneUsers.setVisible(false);
+		cboPerfil.setSelectedItem("");
 	}// fim do método limpar campos()
 
 	/**
@@ -304,11 +318,14 @@ public class Usuarios extends JDialog {
 		} else if (txtSenha.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o Senha do Usuário");
 			txtSenha.requestFocus();
+		} else if (cboPerfil.getSelectedItem().equals("")) {
+			JOptionPane.showMessageDialog(null, "Preencha o Perfil do Usuário");
+			
 		} else {
 
 			// lógica pricipal
 			// CRUD Creat
-			String create = "insert into usuarios (nome,login,senha) values (?,?,md5(?))";
+			String create = "insert into usuarios (nome,login,senha,perfil) values (?,?,md5(?),?)";
 			// tratamento com exceções
 			try {
 				// abrir conexão
@@ -318,6 +335,7 @@ public class Usuarios extends JDialog {
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtLogin.getText());
 				pst.setString(3, txtSenha.getText());
+				pst.setString(4, cboPerfil.getSelectedItem().toString());
 				// executar a query(instruição sql (CRUD - Creat))
 				pst.executeUpdate();
 				// Confirmar

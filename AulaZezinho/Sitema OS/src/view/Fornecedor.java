@@ -37,6 +37,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.Cursor;
 
 public class Fornecedor extends JDialog {
 	
@@ -61,6 +62,10 @@ public class Fornecedor extends JDialog {
 	private JList listFornecedor;
 	private JTextField txtNome;
 	private JTextField txtCNPJ;
+	private JButton btnExcluir;
+	private JButton btnEditar;
+	private JButton btnAdicionar;
+	private JButton btnLimpar;
 
 	/**
 	 * Launch the application.
@@ -107,7 +112,8 @@ public class Fornecedor extends JDialog {
 			}
 		});
 		
-		JButton btnAdicionar = new JButton("");
+		btnAdicionar = new JButton("");
+		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setToolTipText("Adicionar Fornecedor");
 		btnAdicionar.setIcon(new ImageIcon(Fornecedor.class.getResource("/img/ADD.png")));
 		btnAdicionar.addActionListener(new ActionListener() {
@@ -118,7 +124,9 @@ public class Fornecedor extends JDialog {
 		btnAdicionar.setBounds(57, 240, 48, 48);
 		contentPanel.add(btnAdicionar);
 		
-		JButton btnExcluir = new JButton("");
+		btnExcluir = new JButton("");
+		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnExcluir.setEnabled(false);
 		btnExcluir.setToolTipText("Excluir Fornecedor");
 		btnExcluir.setIcon(new ImageIcon(Fornecedor.class.getResource("/img/Excluir Contato.png")));
 		btnExcluir.addActionListener(new ActionListener() {
@@ -129,7 +137,9 @@ public class Fornecedor extends JDialog {
 		btnExcluir.setBounds(179, 240, 48, 48);
 		contentPanel.add(btnExcluir);
 		
-		JButton btnEditar = new JButton("");
+		btnEditar = new JButton("");
+		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEditar.setEnabled(false);
 		btnEditar.setToolTipText("Editar Fornecedor");
 		btnEditar.setIcon(new ImageIcon(Fornecedor.class.getResource("/img/Editor.png")));
 		btnEditar.addActionListener(new ActionListener() {
@@ -140,7 +150,8 @@ public class Fornecedor extends JDialog {
 		btnEditar.setBounds(303, 240, 48, 48);
 		contentPanel.add(btnEditar);
 		
-		JButton btnLimpar = new JButton("");
+		btnLimpar = new JButton("");
+		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnLimpar.setToolTipText("Limpar");
 		btnLimpar.setIcon(new ImageIcon(Fornecedor.class.getResource("/img/clear icon.png")));
 		btnLimpar.addActionListener(new ActionListener() {
@@ -417,6 +428,10 @@ public class Fornecedor extends JDialog {
 					txtCidade.setText(rs.getString(11));
 					cboUF.setSelectedItem(rs.getString(12));
 					
+					btnAdicionar.setEnabled(false);
+					btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);	
+					
 				}
 
 			} catch (Exception e) {
@@ -444,6 +459,10 @@ public class Fornecedor extends JDialog {
 		txtNumero.setText(null);	
 		txtEndereco.setText(null);		
 		cboUF.setSelectedItem("");
+		
+		btnAdicionar.setEnabled(true);
+		btnEditar.setEnabled(false);
+		btnExcluir.setEnabled(false);
 
 	}
 	private void listarFornecedor() {
