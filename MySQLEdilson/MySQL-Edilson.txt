@@ -1,0 +1,109 @@
+-- USUARIO --
+
+insert into usuario(login,senha,nivelacesso)
+values('admin',md5('123'),'admin');
+
+desc usuario;
+select * from usuario;
+
+--------------------------------------------------------------
+-- CONTATOS --
+
+insert into contato(telefonecelular,telefoneresidencial,email)
+values('11-2395-5435','11-7785-4675','admin@admin.com');
+
+desc contato;
+select * from contato;
+
+---------------------------------------------------------------
+-- ENDERECO --
+
+insert endereco set tipo="Rua", logradouro="Padre Marcos", numero="23A",
+complemento="Apto 122 bloco 2", cep="03812950", referencia="Poste Azul",
+bairro="Jardim Novo", cidade="São paulo", estado="SP";
+
+desc endereco;
+select * from endereco;
+
+-------------------------------------------------------------
+-- CLIENTE --
+
+insert cliente set
+nomecliente = "André Paz", 
+cpfcliente = "283740245",
+rgcliente = "434536346",
+sexocliente = "Masculino",
+datanascimentocliente = "1976-02-10",
+idendereco = 1,
+idcontato = 1,
+idusuario = 1;
+
+desc cliente;
+select * from cliente;
+
+select 
+cli.nomecliente, cli.cpfcliente,
+end.logradouro, end.bairro, end.cidade,
+con.telefonecelular, con.email,
+us.login, us.nivelacesso
+from cliente cli inner join usuario us on cli.idusuario=us.idusuario
+inner join endereco end on cli.idendereco = end.idendereco
+inner join contato con on cli.idcontato = con.idcontato;
+
+-------------------------------------------------------------
+-- CARGO --
+
+desc cargo;
+select * from cargo;
+
+-------------------------------------------------------------
+-- FUNCIONARIO --
+
+select * from funcionario;
+desc funicionario;
+
+-------------------------------------------------------------
+-- CATEGORIA -- 
+
+select * from categoria;
+desc categoria;
+
+-------------------------------------------------------------
+-- FORNECEDOR-- 
+
+select * from fornecedor;
+desc fornecedor;
+
+-------------------------------------------------------------
+-- PRODUTOS --
+
+select * from produto;
+desc produto;
+
+-------------------------------------------------------------
+-- LOTE --
+
+select * from lote;
+desc lote;
+
+------------------------------------------------------------
+-- PEDIDO --
+
+select * from pedido;
+desc pedido;
+
+------------------------------------------------------------
+-- DETALHEPEDIDO --
+
+select * from detalhepedido;
+desc detalhepedido;
+
+------------------------------------------------------------
+-- PEDIDO --
+
+select * from pedido;
+desc pedido;
+
+------------------------------------------------------------
+
+
