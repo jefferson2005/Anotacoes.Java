@@ -1,0 +1,14 @@
+package br.com.paperbook.domain;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Cargo {	
+	
+	private Integer idcargo;
+	private String titulocargo;
+	private Double salario;
+	private String beneficio;
+	private String cargahoraria;
+	
+}

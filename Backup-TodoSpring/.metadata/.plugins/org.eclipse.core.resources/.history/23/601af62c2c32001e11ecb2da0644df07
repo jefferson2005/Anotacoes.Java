@@ -1,0 +1,47 @@
+package br.com.paperbook.domain;
+
+import java.sql.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Cliente {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idcliente;
+	
+	@Column(length=50, nullable=false)
+	private String nomeclinete;
+	
+	@Column(length=15, nullable=false, unique=true)
+	private String cpfclinete;
+	
+	@Column(length=20, nullable=false, unique=true)
+	private String rgcliente;
+	
+	@Column(length=20, nullable=false)
+	private String sexocliente;
+	
+	@Column(nullable=false)
+	private Date datanascimentocliente;
+	
+	@ManyToOne
+	@JoinColumn(name="idendereco")
+	private Endereco endereco;
+	
+	@ManyToOne
+	@JoinColumn(name="idcontato")
+	private Contato contato;
+	
+	@ManyToOne
+	@JoinColumn(name="idusuario")
+	private Usuario usuario;
+	
+}
