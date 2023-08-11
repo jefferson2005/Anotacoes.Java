@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clientes</title>
+
+    <style>
+      h1 {
+        text-align: center;
+        font-family: arial;
+        margin: 20px;
+        border-bottom: 1px solid darkred;
+      }
+      #lista {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        box-shadow: 0px 0px 20px silver;
+      }
+      ul {
+        list-style: none;
+      }
+      li {
+        font-family: arial;
+        margin: 10px;
+        transition: ease 1s;
+      }
+      li:hover {
+        background-color: lightskyblue;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body onload="carregarClientes()">
+    <h1>Clientes Cadastrados</h1>
+    <div id="lista">
+      <ul id="lstclientes"></ul>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
