@@ -179,6 +179,9 @@ from produtos
 inner join fornecedor
 on produtos.idprodutor = fornecedor.idfornecedores;	
 
+select * from produtos inner join fornecedor
+on produtos.idfor = fornecedor.idfornecedores
+where codigo = 1;
 
 -- login (autenticação)
 select * from usuarios where nome = 'admin' and senha = md5('admin');
