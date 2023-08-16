@@ -255,25 +255,26 @@ value ('Luigi Mario','69965-8549');
 
  
   -- PRODUTOS -- --------------------------------------------------------------------------------------------
-  
-   CREATE TABLE fornecedor (
-    idfornecedores INT PRIMARY KEY AUTO_INCREMENT,
-    razao VARCHAR(30) NOT NULL, 
-    fantasia varchar(50) not null,
-    fone VARCHAR(15) NOT NULL,
-    vendedor varchar(20),
-    email VARCHAR(30) not null,
-    site varchar(50),
-    cnpj VARCHAR(11) NOT NULL UNIQUE,
-    ie varchar(20),
-    cep VARCHAR(10) not null ,
-    endereco VARCHAR(50) NOT NULL,
-    numero VARCHAR(10) NOT NULL,
-    complemento VARCHAR(20),
-    bairro VARCHAR(30) NOT NULL,
-    cidade VARCHAR(30) NOT NULL,
-    uf CHAR(2) NOT NULL
-    );
+
+  create table produtos (
+	codigo int primary key auto_increment,
+    barcode varchar(250) unique,
+    produto varchar(50) not null,
+    lote varchar(20) not null,
+    descricao varchar(250) not null,
+    foto longblob,
+    fabricante varchar(50),
+    dataent timestamp default current_timestamp,
+    dataval date not null,
+    estoque int not null,
+    estoquemin int not null,
+    unidade char(2) not null,
+    localarm varchar(50),
+    custo decimal(10,2) not null,
+    lucro decimal(10,2),
+    idfor int not null,
+    foreign key (idfor) references fornecedores (idfor)
+);
 
 select * from produtos;
 desc produtos;
