@@ -8,7 +8,7 @@ let btncadastrar = document.getElementById("btncadastrar");
 btncadastrar.onclick = ()=>{
     
     if(btncadastrar.value=="Atualizar"){
-        fetch("http://10.26.44.53:5000/api/v1/categoria/atualizar/"+idcat, {
+        fetch("http://10.26.44.26:5000/api/v1/categoria/atualizar/"+idcat, {
         method:"PUT",
         headers:{
             "accept":"application/json",
@@ -25,7 +25,7 @@ btncadastrar.onclick = ()=>{
     }
     
     else{ 
-    fetch("http://10.26.44.53:5000/api/v1/categoria/cadastrar", {
+    fetch("http://10.26.44.26:5000/api/v1/categoria/cadastrar", {
         method:"POST",
         headers:{
             "accept":"application/json",
@@ -48,7 +48,7 @@ btncadastrar.onclick = ()=>{
 // Exibir as categorias cadastradas
 function exibirCategorias(){
     let saida = "";
-    fetch("http://10.26.44.53:5000/api/v1/categoria/listar")
+    fetch("http://10.26.44.26:5000/api/v1/categoria/listar")
     .then((response)=>response.json())
     .then((dados)=>{
         dados.map((itens,ix)=>{
@@ -82,7 +82,7 @@ function atualizar(id, cat , desc){
 
 }
 function apagar(id){
-    fetch("http://10.26.44.53:5000/api/v1/categoria/apagar/"+id,{method:"DELETE"})
+    fetch("http://10.26.44.26:5000/api/v1/categoria/apagar/"+id,{method:"DELETE"})
     .then((response)=>response.json())
     .then((dados)=>{
        

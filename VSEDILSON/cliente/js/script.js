@@ -1,7 +1,7 @@
 function carregarClientes() {
   //Variável para carregar os dados dos clientes
   let dados = "";
-  fetch("http://10.26.45.53:5000/api/v1/cliente/listar")
+  fetch("http://10.26.45.76:5000/api/v1/cliente/listar")
     .then((response) => response.json())
     .then((rs) => {
       rs.map((itens, ix) => {
@@ -27,7 +27,7 @@ function carregarClientes() {
 
 function info(id) {
   let dados = "";
-  fetch("http://10.26.45.53:5000/api/v1/cliente/buscar/" + id)
+  fetch("http://10.26.45.76:5000/api/v1/cliente/buscar/" + id)
     .then((response) => response.json())
     .then((rs) => {
       dados = `
