@@ -2,13 +2,22 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DetalhePedido</title>
+    <title>Detalhe do Pedido</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body onload="carregarDetalhes()">
     <h1>DetalhePedido</h1>
-    <div> id="lstDetalhePedido</div>
-    <ul> id="lstheader</ul>
+    <div id="lstDetalhePedido">
+        <ul id="lstheader">
+             <li>Código Pedido</li>
+             <li>Quantidade</li>
+             <li>Preço Unitario</li>
+             <li>Valor Total</li>
+        </ul>
+    </div>
+
+    <script src="js/script.js"> </script>
+
 </body>
 </html>

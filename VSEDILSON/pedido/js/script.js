@@ -19,6 +19,4 @@ function carregarDados(){
     });
   })
   .catch((err)=>console.error(err));
-
-
 }

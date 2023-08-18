@@ -1,0 +1,35 @@
+h1 {
+    font-family: "arial";
+    text-align: center;
+    border-bottom: 1px solid darkred;
+}
+
+ul {
+    list-style: none;
+}
+
+#lstheader li {
+    display: inline-block;
+    font-weight: bold;
+    font-family: arial;
+    width: 19%;
+}
+
+#quantidadde li {
+    display: inline-block;
+    font-weight: bold;
+    font-family: arial;
+    width: 19%;
+}
+
+#quantidade {
+    padding: 10px;
+    padding-left: 90px;
+    transition: ease ls;
+}
+
+#quantidade:hover {
+    cursor: pointer;
+    background-color: silver;
+
+}
