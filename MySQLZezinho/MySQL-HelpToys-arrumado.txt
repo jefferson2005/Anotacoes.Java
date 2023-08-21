@@ -189,6 +189,19 @@ select * from usuarios where nome = 'admin' and senha = md5('admin');
 -- busca avançada pelo nome (estilo google)
 select nome from usuarios where nome like 'j%' order by nome;
 
+-- reposição de estoques
+select codigo as código,produto,date_format(dataval, '%d/%m/%Y') as validade,
+estoque, estoquemin as estoque_mínimo 
+from produtos where estoque < estoquemin;
+
+-- produtos vencidos
+select codigo as código,produto,date_format(dataval, '%d/%m/%Y') as validade,
+date_format(dataent, '%d/%m/%Y') as entrada
+from produtos where dataval < dataent;
+
+-- patrímônio(inventário) custo dos produtos
+select sum(custo * estoque) as Total from produtos;
+
 --------------------------------------------- TABELAS ---------------------------------------------------
 
 -- SERVICOS -- --------------------------------------------------------------------------------------------
