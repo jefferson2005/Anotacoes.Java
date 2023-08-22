@@ -3,7 +3,7 @@ function carregarDetalhes(){
     let dados = "";
 
 
-  fetch("http://localhost:5000/api/v1/detalhepedido/listar")
+  fetch("http://10.26.45.76:5000/api/v1/detalhepedido/listar")
   .then((response) => response.json())
   .then((rs) =>{
     console.log(rs);
