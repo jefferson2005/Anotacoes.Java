@@ -17,7 +17,7 @@ public class Categoria {
 	private String nomecategoria;
 	
 	@Column(nullable = false)
-	private String descricao;
+	private String descricaocategoria;
 
 	public Categoria() {
 	}
@@ -25,7 +25,7 @@ public class Categoria {
 	public Categoria(Integer idcategoria, String nomecategoria, String descricao) {
 		this.idcategoria = idcategoria;
 		this.nomecategoria = nomecategoria;
-		this.descricao = descricao;
+		this.descricaocategoria = descricao;
 	}
 
 	public Integer getIdcategoria() {
@@ -45,11 +45,11 @@ public class Categoria {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return descricaocategoria;
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricaocategoria = descricao;
 	}
 	
 	

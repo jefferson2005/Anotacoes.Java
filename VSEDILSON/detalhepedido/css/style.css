@@ -31,5 +31,8 @@ ul {
 #quantidade:hover {
     cursor: pointer;
     background-color: silver;
-
+}
+li {
+    display: inline-block;
+    width: 19%;
 }
