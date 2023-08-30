@@ -221,6 +221,7 @@ create table servicos(
     defeito varchar(200) not null,
     valor decimal (10,2),
     descricao varchar(250) not null,
+    atendente varchar(50) not null,
     id int not null,
     foreign key (id) references clientes(idcli)
     );
@@ -228,8 +229,8 @@ create table servicos(
 select * from servicos;
 desc servicos;
     
-insert into servicos (brinquedo,defeito,valor,descricao,id)
-values ('Notebook Lenovo G90','Troca da fonte',250,'Defeito',5);
+insert into servicos (brinquedo,defeito,valor,descricao,antendete,id)
+values ('Notebook Lenovo G90','Troca da fonte',250,'Defeito','jeff',5);
 
 
 -- CLIENTES -- --------------------------------------------------------------------------------------------
