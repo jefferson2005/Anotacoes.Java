@@ -179,9 +179,10 @@ from produtos
 inner join fornecedor
 on produtos.idprodutor = fornecedor.idfornecedores;	
 
+
 select * from produtos inner join fornecedor
 on produtos.idfor = fornecedor.idfornecedores
-where codigo = 1;
+where codigo = 2;
 
 -- login (autenticação)
 select * from usuarios where nome = 'admin' and senha = md5('admin');
@@ -202,6 +203,13 @@ from produtos where dataval < dataent;
 -- patrímônio(inventário) custo dos produtos
 select sum(custo * estoque) as Total from produtos;
 
+select sum((custo +(custo * lucro)/100) * estoque) as total from produtos;
+
+select codigo as código,produto,date_format(dataval, '%d/%m/%Y') as validade,
+date_format(dataent, '%d/%m/%Y') as entrada,
+estoque, estoquemin as estoque_mínimo 
+from produtos where dataval < dataent;
+
 --------------------------------------------- TABELAS ---------------------------------------------------
 
 -- SERVICOS -- --------------------------------------------------------------------------------------------
@@ -212,6 +220,7 @@ create table servicos(
     brinquedo varchar(200) not null,
     defeito varchar(200) not null,
     valor decimal (10,2),
+    descricao varchar(250) not null,
     id int not null,
     foreign key (id) references clientes(idcli)
     );
@@ -219,8 +228,8 @@ create table servicos(
 select * from servicos;
 desc servicos;
     
-insert into servicos (brinquedo,defeito,valor,idcli)
-values ('Notebook Lenovo G90','Troca da fonte',250,5);
+insert into servicos (brinquedo,defeito,valor,descricao,id)
+values ('Notebook Lenovo G90','Troca da fonte',250,'Defeito',5);
 
 
 -- CLIENTES -- --------------------------------------------------------------------------------------------
@@ -268,25 +277,25 @@ value ('Luigi Mario','69965-8549');
 
  
   -- PRODUTOS -- --------------------------------------------------------------------------------------------
-
-  create table produtos (
-	codigo int primary key auto_increment,
-    barcode varchar(250) unique,
-    produto varchar(50) not null,
-    lote varchar(20) not null,
-    descricao varchar(250) not null,
-    foto longblob,
-    fabricante varchar(50),
-    dataent timestamp default current_timestamp,
-    dataval date not null,
-    estoque int not null,
-    estoquemin int not null,
-    unidade char(2) not null,
-    localarm varchar(50),
-    custo decimal(10,2) not null,
-    lucro decimal(10,2),
-    idfor int not null,
-    foreign key (idfor) references fornecedores (idfor)
+  
+ create table produtos (
+	codigo int primary key auto_increment, -- 1
+    barcode varchar(250) unique, -- 2
+    produto varchar(50) not null, -- 3
+    lote varchar(20) not null, -- 4
+    descricao varchar(250) not null, -- 5
+    foto longblob, -- 6
+    fabricante varchar(50), -- 7
+    dataent timestamp default current_timestamp, -- 8
+    dataval date not null, -- 9
+    estoque int not null, -- 10
+    estoquemin int not null, -- 11
+    unidade char(2) not null, -- 12
+    localarm varchar(50), -- 13
+    custo decimal(10,2) not null, -- 14
+    lucro decimal(10,2), -- 15
+    idfor int not null, -- 16
+    foreign key (idfor) references fornecedor (idfornecedores)
 );
 
 select * from produtos;
@@ -318,7 +327,7 @@ CREATE TABLE fornecedor (
     uf CHAR(2) NOT NULL
     );
     
-    select * from fornecedor;
+select * from fornecedor;
 desc fornecedor;
     
     -- tabela produtos
@@ -344,9 +353,8 @@ create table usuarios(
 ('Jefferson Lins','Jeff',md5('123@senac'), 'user');
 
 insert into usuarios (nome,login,senha,perfil) values 
-('Mario armado','mario@armado',md5('123@senac'),'admin');
-
+('Mario','mario',md5('123@senac'),'admin');
  
-
+ -- Mysql Zezinho
 
    
