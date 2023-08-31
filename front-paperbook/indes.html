@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="cxarea">
+    <form onsubmit="return false">        
+        <label>Título da área</label>
+        <input type="text" placeholder="Nome da área" id="txtarea">
+        <input type="submit" value="Cadastrar">
+    </form>
+    <ul id="lstarea">
+        <li>id</li>
+        <li>Título da Área</li>
+    </ul>
+
+</div>
+
+    <div id="cxunidade">
+        <form onsubmit="return false">
+            <label>Nome unidade</label>
+            <input type="text" placeholder="Unidade">
+<br>
+            <label>Endereço</label>
+            <input type="address" placeholder="Endereço">
+            <input type="submit" value="Cadastrar">
+        </form>
+
+
+    </div>
+    <div id="cxcurso">
+        
+        <form onsubmit="return false">
+            <label>Título do Curso</label>
+            <input type="text" placeholder="Nome do Curso">
+
+            <label>Descrição</label>
+            <input type="text" placeholder="Descrição">
+
+            <br>
+            <label>Carga Horária</label>
+            <input type="text" placeholder="Carga Horária">
+
+            
+            <label>Área</label>
+            <select id="selectarea">
+                <option value="Selecione">Selecione</option>
+                <option value="Informática">Informática</option>
+                <option value="Administração">Administração</option>
+            </select>
+
+            <label>Unidade</label>
+            <select id="selectunidade">
+                <option value="Selecione">Selecione</option>
+                <option value="Tatuapé">Tatuapé</option>
+                <option value="Penha">Penha</option>
+            </select>
+            <input type="submit" value="Cadastrars">
+
+        </form>
+
+
+    </div>
+
+</body>
+</html>
