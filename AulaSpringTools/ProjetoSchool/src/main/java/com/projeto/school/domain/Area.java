@@ -1,4 +1,4 @@
-package br.com.school.domain;
+package com.projeto.school.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,14 +8,14 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Area {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idarea;
 	
-	@Column(nullable=false)
+	@Column(nullable = false, unique=true)
 	private String tituloarea;
-	
+
 	public Area() {
 	}
 
@@ -32,12 +32,13 @@ public class Area {
 		this.idarea = idarea;
 	}
 
-	public String getTituloarea() {
+	public String gettituloarea() {
 		return tituloarea;
 	}
 
-	public void setTituloarea(String tituloarea) {
+	public void settituloarea(String tituloarea) {
 		this.tituloarea = tituloarea;
 	}
+
 	
 }

@@ -8,10 +8,10 @@
 		<version>3.1.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>SpringSchool</artifactId>
+	<groupId>com.projeto.school</groupId>
+	<artifactId>ProjetoSchool</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringSchool</name>
+	<name>ProjetoSchool</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

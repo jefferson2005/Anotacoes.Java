@@ -1,9 +1,9 @@
-package br.com.school.repository;
+package com.projeto.school.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.school.domain.Unidade;
+import com.projeto.school.domain.Unidade;
 
 @Repository
 public interface UnidadeRepository extends JpaRepository<Unidade, Integer>{

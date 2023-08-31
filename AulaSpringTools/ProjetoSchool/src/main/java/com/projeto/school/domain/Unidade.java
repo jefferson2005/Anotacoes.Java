@@ -1,4 +1,4 @@
-package br.com.school.domain;
+package com.projeto.school.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +13,10 @@ public class Unidade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idunidade;
 	
-	@Column(nullable=false)
+	@Column(nullable = false, unique=true)
 	private String nomeunidade;
 	
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String endereco;
 
 	public Unidade() {
@@ -51,5 +51,6 @@ public class Unidade {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	
 	
 }
