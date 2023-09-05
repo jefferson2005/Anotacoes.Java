@@ -229,7 +229,8 @@ create table servicos(
 select * from servicos;
 desc servicos;
     
-insert into servicos (brinquedo,defeito,valor,descricao,antendete,id)
+drop table servicos;
+insert into servicos (brinquedo,defeito,valor,descricao,atendente,id)
 values ('Notebook Lenovo G90','Troca da fonte',250,'Defeito','jeff',5);
 
 
