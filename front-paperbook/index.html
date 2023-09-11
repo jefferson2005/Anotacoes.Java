@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="cxarea">
+<form onsubmit="return false">
+    <label>Título da Área</label>
+    <input type="text" placeholder="Nome da Área" id="txtarea">
+    <input type="submit" value="Cadastrar">
+</form>
+    <ul id="lstarea">
+        <li>Id</li>
+        <li>Título da Área</li>
+    </ul>
+    <ul id="itensarea"></ul>
+</div>
+
+<div id="cxunidade">
+<form onsubmit="return false">
+    <label>Nome Unidade</label>
+    <input type="text" placeholder="Unidade">
+    <br>
+    <label>Endereço</label>
+    <input type="address" placeholder="Endereço">
+    <input type="submit" value="Cadastrar">
+</form>
+<ul>
+    <li>Id</li>
+    <li>Nome</li>
+    <li>Endereço</li>
+</ul>
+<ul id="itensunidade"></ul>
+</div>
+
+<div id="cxcurso">
+<form onsubmit="return false">
+    <label>Título do Curso</label>
+    <input type="text" placeholder="Nome do Curso">
+    <label>Descrição</label>
+    <input type="text" placeholder="Descrição do Curso">
+    <br>
+    <label>Carga Horária</label>
+    <input type="text" placeholder="Carga Horária do Curso">
+    
+    <label>Área</label>
+    <select id="selectarea">
+        <option value="Selecione">Selecione</option>
+        <option value="Informática">Informática</option>
+        <option value="Administração">Administração</option>
+    </select>
+    <label>Unidade</label>
+    <select id="selectunidade">
+        <option value="Selecione">Selecione</option>
+        <option value="Tatuapé">Tatuapé</option>
+        <option value="Itaquera">Itaquera</option>
+    </select>
+    <br>
+    <input type="submit" value="Cadastrar">
+</form>
+<ul>
+    <li>Id</li>
+    <li>Título Curso</li>
+    <li>Descrição</li>
+    <li>Carga Horária</li>
+    <li>Id Area</li>
+    <li>Id Unidade</li>
+
+</ul>
+<ul id="itenscurso"></ul>
+</div>   
+
+<script src="js/script.js"></script>
+
+
+
+</body>
+</html>
