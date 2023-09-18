@@ -1,0 +1,39 @@
+@charset "UTF-8";
+/* comentários */
+@import url('https://fonts.googleapis.com/css2? family= Mooli & display=swap');
+
+body{
+    font-family: Arial;
+    /*background-color: white;*/
+    background: url("ubuntu4.jpg") no-repeat;
+}
+
+table{
+    width: 100%;
+    height: 100%;
+    border: 2px solid black; /* tipos de bordas: dotted, dashed, double, groove, ridge, inset, outset*/
+    text-align: center;
+    border-spacing: 0px;
+}
+
+td{
+    border: 2px solid black;
+    padding: 5px;
+}
+
+#linux{
+    color: aquamarine;
+    font-size: 3em;
+    font-family: 'Mooli', sem serifa;
+    font-weight: 700;
+}
+
+.ubuntu{
+    color: rgb(0, 0, 0);
+    font: 1.3em;
+}
+
+.edu{
+    color: blue;
+    font-size: 1.2em;
+}
