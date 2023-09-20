@@ -37,3 +37,14 @@ td{
     color: blue;
     font-size: 1.2em;
 }
+
+a{
+    color: beige;
+    text-decoration: none;
+}
+
+a:hover{
+    color: aquamarine;
+    text-decoration: underline;
+
+}
