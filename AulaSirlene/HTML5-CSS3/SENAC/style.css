@@ -21,7 +21,7 @@ body{
 
 .topo{
     height: 350px;
-    background-color: violet;
+    
 }
 
 .logo{
@@ -131,11 +131,45 @@ ul, ol{
     padding: 10px;
 }
 
+form{
+    width: 900px;
+    margin: auto;
+    position: relative;
+}
 
+legend{
+    color: #004c94;
+    font-weight: bold;
+    font-size: 1.2em;
+}
 
+fieldset{
+    border: 2px solid #004c94;
+    margin: 20px;
+    padding: 20px;
+}
 
+fieldset#sexo{
+    width: 150px;
+}
 
+#usuario{
+    background:url("img/icontato.png") no-repeat 95% 95%;
+}   
 
+#endereco{
+    background:url("img/icone-endereco.png") no-repeat 95% 95%;
+}
+
+#mensagem{
+    background:url("img/icone-mensagem.png")  no-repeat 95% 95%;
+}
+
+input, textarea{
+    background-color: #FFF;
+    padding: 3px;
+    border-radius: 5px;
+}
 
 
 
