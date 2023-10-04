@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+NKo+Unjoined:wght@400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body{
+    font-size: 1em;
+    background-color: blue;
+    font-family:'Noto Sans NKo Unjoined', sans-serif;
+}
+
+.botao{
+    text-decoration: none;
+    color: #FFF;
+    font-size: 1.3em;
+    background-color: cadetblue;
+    padding: 10px 40px;
+    border: 2px solid white;
+    border-radius: 25px;
+}
+
+.container{
+    margin: 0 auto;
+}
+
+#topo{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+/*Smartphone Portrait*/
+header{
+    height: 60px;
+}
+#logo img{
+    width: 128px;
+    height: 128px;
+}
+
+#check{
+    display: none;
+}
+
+label{
+    font-size: 3em;
+    position: fixed;
+    top: 5px;
+    right: 15px;
+    color: aquamarine;
+}
+
+
+
+
+/*Smartphone Landscape*/
+@media (min-width: 576px){
+    body{
+        background-color: aqua;
+    }
+    .container{
+        max-width: 540px;
+        background-color: rgb(216, 195, 236);
+    }
+}
+
+/*Tablet Portrait*/
+@media (min-width: 768px){
+    .container{
+        max-width: 720px;
+        background-color: brown;
+    }
+}
+
+/*Table Landscape*/
+@media (min-width: 992px){
+    .container{
+        max-width: 960px;
+        background-color: rgb(255, 0, 0);
+    }
+}
+
+/*PC*/
+@media (min-width: 1200px){
+    .container{
+        max-width: 1440px;
+        background-color: rgb(229, 255, 0);
+    }
+    header{
+        height: 120px;
+    }
+    #logoimg{
+        width: 189px;
+        height: 189px;
+        margin-top: 30px;
+        margin-left: 20px;        
+    }
+}
