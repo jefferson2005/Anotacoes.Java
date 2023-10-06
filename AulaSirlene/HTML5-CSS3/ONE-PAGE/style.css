@@ -10,7 +10,6 @@
 
 body{
     font-size: 1em;
-    background-color: blue;
     font-family:'Noto Sans NKo Unjoined', sans-serif;
 }
 
@@ -27,6 +26,17 @@ body{
 .container{
     margin: 0 auto;
 }
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex2{
+    display: flex;
+    align-items: center;
+}
+
 
 #topo{
     position: fixed;
@@ -56,6 +66,78 @@ label{
     color: aquamarine;
 }
 
+nav ul{
+    list-style: none;
+    background-color: #343538;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    right: -100%;
+    width: 100%;
+    transition: all 0.5s;
+}
+
+#check:checked ~ ul{
+    right: 0;
+}
+
+nav ul li{
+    padding: 20px;
+    border-bottom: 1px solid #a9a9a9;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+main{
+    height: 75vh;
+    background: url(img/banner_front.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+main h1{
+    font-size: 2.5em;
+    color: #FFF;
+}
+
+main h2{
+    font-size: 1em;
+    margin: 20px 0px 50px 0px;
+    color: #FFF;
+}
+#sobre{
+    padding: 50px 0px;
+    background: url(img/background5.jpg);
+    background-size: cover;
+    background-position: center;
+}
+.destaque_sobre{
+    display: none;
+}
+#texto_sobre{
+    color: #FFF;
+    padding: 0px 10px;
+}
+#texto_sobre h2{
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+#texto_sobre p{
+    font-size: 1.2em;
+}
+.topico_sobre{
+    margin-top: 20px;
+}
+.topico_sobre img{
+    margin-right: 10px;
+}
+
 
 
 
@@ -66,7 +148,9 @@ label{
     }
     .container{
         max-width: 540px;
-        background-color: rgb(216, 195, 236);
+    }
+    main h1, main h2{
+        text-shadow: #000 0.5em 0.5em 0.5em;
     }
 }
 
@@ -74,7 +158,15 @@ label{
 @media (min-width: 768px){
     .container{
         max-width: 720px;
-        background-color: brown;
+    }
+    main{
+        height: 45vh;
+    }
+    main h1{
+        font-size: 5.5em;
+    }
+    main h2{
+        font-size: 2em;
     }
 }
 
@@ -82,7 +174,9 @@ label{
 @media (min-width: 992px){
     .container{
         max-width: 960px;
-        background-color: rgb(255, 0, 0);
+    }
+    main{
+        height: 70vh;
     }
 }
 
@@ -90,7 +184,6 @@ label{
 @media (min-width: 1200px){
     .container{
         max-width: 1440px;
-        background-color: rgb(229, 255, 0);
     }
     header{
         height: 120px;
@@ -101,4 +194,30 @@ label{
         margin-top: 30px;
         margin-left: 20px;        
     }
+    nav ul{
+        position: static;
+        height: auto;
+        background-color: #343538;
+        top: 50px;
+    }
+    nav ul li{
+        float: left;
+        border: 0;
+    }
+    nav ul li a{
+        color: #343538
+    }
+    nav ul li a:hover{
+        color: #a9a9a9;
+    }
+    .destaque_sobre{
+        display: inline;
+    }
+    .destaque_sobre img{
+        border-radius: 50%;
+        margin-right: 50px;
+    }
+    #sobre{
+        background-attachment: fixed;/*efeito paraliax*/ 
+    }    
 }
