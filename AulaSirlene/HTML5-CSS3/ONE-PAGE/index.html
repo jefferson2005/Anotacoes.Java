@@ -14,7 +14,7 @@
 </head>
 <body>
     <header id="inicio">
-        <div class="container">
+        <div class="container flex">
             <article id="logo">
                 <img src="img/logo_front.png" alt="Logotipo Front End">
             </article>
@@ -70,7 +70,7 @@
                         <p>Ideal para negócios de pequeno ou médio porte o site One Page é um site onde você inclui todas as informações que o visitante precisa de forma objetiva e criativa em uma única página.</p>
                     </article>
                     <article id="video">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/tFyHyxTwSPA?si=1K14-Fc9TNLN3OkK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/tFyHyxTwSPA?si=1K14-Fc9TNLN3OkK" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </article>
                 </div>
             </section>
@@ -78,7 +78,7 @@
     
 
     <section id="wireframe">
-        <div class="container">
+        <div class="container flex2">
             <article id="texto_wireframe">
                 <h2>wireframe</h2>
                 <p>Wireframe é uma representação visual da estrutura básica de uma página. Ele deve ser feito da maneira mais simples possível, mostrando apenas o essencial, como uma espécie de rascunho, sem cores ou imagens. Clique no botão  <span>ou escaneie o QR Code</span>  para obter o wireframe desta página.</p>
@@ -93,39 +93,41 @@
         <div class="container">
             <h2>Conteúdo</h2>
 
-            <div class="cards">
-                <div class="card"></div>
-                <img src="img/estruturahtml.png" alt="HTML5">
-                <h3>HLTM5</h3>
-                <p>O html é usado para exibir conteúdo na WEB e a estrutura do documento é dividida em partes conforme indicado neste cartão.</p>
-                <a href="#" target="_blank" class="botao">Saiba+</a>
-            </div>
+            <div class="cards flex4">
+                
+                <div class="card">
+                    <img src="img/estruturahtml.png" alt="HTML5">
+                    <h3>HLTM5</h3>
+                    <p>O html é usado para exibir conteúdo na WEB e a estrutura do documento é dividida em partes conforme indicado neste cartão.</p>
+                    <a href="#" target="_blank" class="botao">Saiba+</a>
+                </div>       
 
-            <div class="cards">
-                <div class="card"></div>
-              <img src="img/boxmodel.png" alt="Box Model">
-                <h3>Box Model</h3>
-                <p>O box model relaciona as propriedades descritas neste cartão para compor a dimensão do elemento.</p>
-                <a href="#" target="_blank" class="botao">Saiba+</a>
-            </div>
+           
+                <div class="card">
+                    <img src="img/boxmodel.png" alt="Box Model">
+                    <h3>Box Model</h3>
+                    <p>O box model relaciona as propriedades descritas neste cartão para compor a dimensão do elemento.</p>
+                    <a href="#" target="_blank" class="botao">Saiba+</a>
+                </div>
 
-            <div class="cards">
-                <div class="card"></div>
-              <img src="img/javascript.png" alt="JavaScript">
-                <h3>JavaScript</h3>
-                <p>O html é usado para exibir conteúdo na WEB e a estrutura do documento é dividida em partes conforme indicado neste cartão.</p>
-                <a href="#" target="_blank" class="botao">Saiba+</a>
-            </div>
-        </div>
+        
+                <div class="card">
+                    <img src="img/javascript.png" alt="JavaScript">
+                    <h3>JavaScript</h3>
+                    <p>O html é usado para exibir conteúdo na WEB e a estrutura do documento é dividida em partes conforme indicado neste cartão.</p>
+                    <a href="#" target="_blank" class="botao">Saiba+</a>
+                </div>
 
+        </div> 
         <div id="todos">
-            <a href="#" target="_blank">Conheça mas conteúdos</a>
+            <a href="#" target="_blank" class="botao">Conheça mais conteúdos</a>
         </div>
-   
+    </div>
+        
     </section>
     <address>
-        <div class="container">
-            <article class="contato">
+        <div class="container flex6">
+            <div class="contato">
                 <a href="" target="_blank"><img src="img/whatsapp.png" alt="whatsapp">
                 <p>(11) 91234-1234</p>
                 </a>
@@ -133,10 +135,10 @@
                     <img src="img/fone.png" alt="Telefone">
                     <p>(11) 1234-1234</p>
                 </a>
-            </article>
+            </div>
             <article class="endereco">
                 <a href="" target="_blank">
-                    <img src="img/mapa.png" alt="Mapa do Endereço">
+                    <img src="img/mapa.png" alt="Mapa do Endereço" id="icone_mapa">
                 </a>
 
                 <img src="img/local.png" alt="Local" id="icone_local">
@@ -151,13 +153,13 @@
             </article>
             
             <article id="google_maps">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.765835377775!2d-46.577542724626774!3d-23.540923178813884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5ec26cfdcfed%3A0x49e7eb66fd4f1f2!2sSenac%20Tatuap%C3%A9%20-%20Cel.%20Lu%C3%ADs%20Americano!5e0!3m2!1spt-BR!2sbr!4v1696444278996!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.765835377775!2d-46.577542724626774!3d-23.540923178813884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5ec26cfdcfed%3A0x49e7eb66fd4f1f2!2sSenac%20Tatuap%C3%A9%20-%20Cel.%20Lu%C3%ADs%20Americano!5e0!3m2!1spt-BR!2sbr!4v1696444278996!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </article>
         </div>
     </address>
 
     <footer>
-        <div class="contato">
+        <div class="contato flex5">
             <article id="copyright">
                 <p>&#169;2023 - Somente para fins educativos.</p>
             </article>
